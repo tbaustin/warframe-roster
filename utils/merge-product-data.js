@@ -1,0 +1,68 @@
+'use strict'
+const path = require('path')
+const fs = require('fs-extra')
+const glob = require('glob-all')
+const dirs = [
+	'./json/markdown/product',
+	'./json/salsify'
+]
+
+function getJsonPaths(dirs){
+	return new Promise((resolve, reject) => {
+		console.log('Getting product JSON paths...')
+		let globStrs = dirs.map(dir => `${dir}/**/*.json`)
+		glob(globStrs, (err, res) => {
+			if(err) return reject(err)
+			resolve(res)
+		})
+	})
+}
+
+function getData(paths){
+	console.log('Getting product JSON data...')
+	let promises = paths.map(path => {
+		return fs.readJson(path)
+	})
+	return Promise.all(promises)
+		.then(data => {
+			let obj = {}
+			paths.map((p, key) => {
+				obj[p] = data[key]
+				obj[p].id = path.parse(p).name.toLowerCase()
+			})
+			return obj
+		})
+}
+
+function mergeData(obj){
+	console.log('Merging product JSON data...')
+	let merged = {}
+	for(let i in obj){
+		let name = obj[i].id
+		if (!(name in merged)){
+			merged[name] = obj[i]
+		}
+		else{
+			merged[name] = Object.assign(obj[i], merged[name])
+		}
+	}
+	return merged
+}
+
+function saveJson(obj){
+	console.log('Saving merged product JSON data...')
+	let promises = []
+	let all = []
+	for(let id in obj){
+		all.push(obj[id])
+		promises.push(fs.outputJson(`./json/product/${id}.json`, obj[id], { spaces: '\t' }))
+	}
+	return Promise.all(promises)
+}
+
+getJsonPaths(dirs)
+	.then(getData)
+	.then(mergeData)
+	.then(saveJson)
+	.then(() => console.log('Product JSON merged!'))
+	.catch(err => { throw err })

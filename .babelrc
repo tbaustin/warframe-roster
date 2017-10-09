@@ -1,0 +1,39 @@
+{
+	"plugins": [
+		[
+			"module-resolver",
+			{
+				"root": [
+					"."
+				],
+				"alias": {
+					"styles": "./styles"
+				},
+				"cwd": "babelrc"
+			}
+		],
+		[
+			"styled-components",
+			{
+				"ssr": true,
+				"displayName": true,
+				"preprocess": false
+			}
+		],
+		[
+			"wrap-in-js",
+			{
+				"extensions": [
+					"css$"
+				]
+			}
+		],
+		"transform-inline-environment-variables",
+		"babel-plugin-dotenv",
+		"inline-react-svg"
+	],
+	"presets": [
+		"./config/babel-preset"
+	],
+	"ignore": []
+}

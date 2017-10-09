@@ -1,0 +1,27 @@
+# System generated files
+.DS_Store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+node_modules/
+
+# Development/Environment
+dev
+.env
+out
+dist
+.next
+json
+static
+
+# Temporary
+temp
+tmp
+temp-*
+
+# Remove for production
+img/salsify
