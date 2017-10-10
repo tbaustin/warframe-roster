@@ -8,10 +8,9 @@ import Loader from 'components/page-load-animation'
 import Head from 'next/head'
 import detectIe from 'detectie'
 import env from 'json/env.json'
-import {name} from '../package.json'
-
-const siteName = 'Website Title'
-const description = 'Website description'
+import createTitle from 'utils/create-page-title'
+import createDescription from 'utils/create-page-description'
+import env from 'json/env.json'
 
 fastclick()
 
@@ -55,9 +54,9 @@ export default class Layout extends React.Component {
 			zygote.findQty()
 			zygote.findIcons()
 			if (!zygote.api) {
-				zygote.api = process.env.ZYGOTE_API
+				zygote.api = env.ZYGOTE_API
 				zygote.properties = {
-					site: 'bear'
+					site: env.ECOMMERCE_API_SITE
 				}
 			}
 		}
@@ -85,27 +84,15 @@ export default class Layout extends React.Component {
 		logPageView()
 	}
 	render() {
-
-		// Get title
-		const delimeter = ' | '
-		let pageTitle = this.props.title
-		let displayTitle
-		if (pageTitle) {
-			displayTitle = `${pageTitle}${delimeter}${siteName}`
-		}
-		else if (description) {
-			displayTitle = `${siteName}${delimeter}${description}`
-		}
-		else {
-			displayTitle = siteName
-		}
 		return (
-			<div className={`cont ${!pageTitle && 'home'}`}>
+			<div>
 				<Head>
-					<title>{displayTitle}</title>
 					<meta charSet='utf-8' />
 					<meta name='viewport' content='initial-scale=1.0, width=device-width' />
-					<meta content={this.props.description ? this.props.description : description} name='description' />
+
+					<title>{createTitle('Website Title', 'Website description', this.props.title)}</title>
+					<meta content={createDescription('Website description', this.props.description)} name='description' />
+
 					<style>{style}</style>
 					<link rel='icon' type='image/png' href='/static/img/favicon.png' />
 					<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" />
