@@ -10,7 +10,6 @@ import detectIe from 'detectie'
 import env from 'json/env.json'
 import createTitle from 'utils/create-page-title'
 import createDescription from 'utils/create-page-description'
-import env from 'json/env.json'
 
 fastclick()
 
@@ -32,7 +31,7 @@ export default class Layout extends React.Component {
 			if (this.ie) return document.location = url
 			this.clearTimeouts()
 			this.uiTimeout = setTimeout(this.showLoader.bind(this), 100)
-			this.loadTimeout = setTimeout(() => this.routerError(url), 5000)
+			//this.loadTimeout = setTimeout(() => this.routerError(url), 5000)
 		}
 		Router.onRouteChangeComplete = this.routerDone
 		Router.onRouteChangeError = (err, url) => this.routerError(url)
@@ -69,7 +68,7 @@ export default class Layout extends React.Component {
 	}
 	clearTimeouts() {
 		clearTimeout(this.uiTimeout)
-		clearTimeout(this.loadTimeout)
+		//clearTimeout(this.loadTimeout)
 	}
 	routerError(url) {
 		document.location = url || '/404'
