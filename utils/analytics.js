@@ -1,5 +1,5 @@
 import ReactGA from 'react-ga'
-import env from 'config/env.json'
+import env from 'json/env.json'
 
 export const initGA = () => {
 	if (!env.GOOGLE_ANALYTICS_ID) return

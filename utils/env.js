@@ -13,7 +13,7 @@ expose.forEach(key => {
 
 // Save file
 console.log('Saving client .env variables...')
-fs.outputJson('./config/env.json', clientObj)
+fs.outputJson('./json/env.json', clientObj)
 	.then(() => console.log('Done saving client .env variables!'))
 	.catch(err => {
 		throw err
