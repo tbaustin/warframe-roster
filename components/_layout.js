@@ -1,88 +1,122 @@
 import React from 'react'
-import NoSSR from 'react-no-ssr'
-import Head from 'next/head'
+import Router from 'next/router'
 import { initGA, logPageView } from 'utils/analytics'
-import pkg from '../package.json'
 import style from '../styles/index.css'
 import fastclick from 'react-fastclick'
-import Header from 'components/header/header'
-import Footer from 'components/footer/footer'
-import Loader from 'components/loader'
-import Modal from 'components/modal'
-import DealerLocator from 'components/dealer-locator/dealer-locator'
-import mapStyles from '../styles/mapStyle.json'
+import settings from 'components/_settings'
+import Loader from 'components/page-load-animation'
+import Head from 'next/head'
+import detectIe from 'detectie'
+import env from '../config/env.json'
+
+const siteName = 'Bear Archery'
+const description = 'Walk Among Legends'
 
 fastclick()
 
 export default class Layout extends React.Component {
 	constructor(props) {
-		super(props);
+		super(props)
 		this.state = {
-			mapOpen: false,
-			mapZip: '47713'
+			loading: false
 		}
-		this.handleDealerSearch = this.handleDealerSearch.bind(this);
+		this.showLoader = this.showLoader.bind(this)
+		this.routerDone = this.routerDone.bind(this)
+		this.routerError = this.routerError.bind(this)
+		this.clearTimeouts = this.clearTimeouts.bind(this)
 	}
-	componentDidMount(){
+	componentWillMount() {
+		// Progress bar
+		this.clearTimeouts()
+		Router.onRouteChangeStart = url => {
+			if (this.ie) return document.location = url
+			this.clearTimeouts()
+			this.uiTimeout = setTimeout(this.showLoader.bind(this), 100)
+			this.loadTimeout = setTimeout(() => this.routerError(url), 5000)
+		}
+		Router.onRouteChangeComplete = this.routerDone
+		Router.onRouteChangeError = (err, url) => this.routerError(url)
+	}
+	componentDidMount() {
+		let ie = detectIe()
+		this.ie = (typeof ie === 'number' && ie <= 11) ? true : false
+
 		// Google Analytics
-		if(!window.GA_INITIALIZED){
+		if (!window.GA_INITIALIZED) {
 			initGA()
 			window.GA_INITIALIZED = true
+			logPageView()
 		}
-		logPageView()
 
 		// Zygote
-		if('zygote' in window){
+		if ('zygote' in window) {
 			zygote.findButtons()
 			zygote.findQty()
 			zygote.findIcons()
+			if (!zygote.api) {
+				zygote.api = process.env.ZYGOTE_API
+				zygote.properties = {
+					site: 'bear'
+				}
+			}
 		}
+
+		// Progress bar
+		this.clearTimeouts()
 	}
-	handleDealerSearch(zip) {
-		console.log('opening popup dealer search');
-		this.setState({
-			mapOpen: true
-		});
-		if (zip) {
-			this.setState({
-				mapZip: zip
-			})
-		}
+	componentWillUnmount() {
+		this.clearTimeouts()
 	}
-	render(){
+	clearTimeouts() {
+		clearTimeout(this.uiTimeout)
+		clearTimeout(this.loadTimeout)
+	}
+	routerError(url) {
+		document.location = url || '/404'
+	}
+	showLoader() {
+		clearTimeout(this.uiTimeout)
+		this.setState({ loading: true })
+	}
+	routerDone() {
+		this.clearTimeouts()
+		this.setState({ loading: false })
+		logPageView()
+	}
+	render() {
+
+		// Get title
 		const delimeter = ' | '
-		const siteName = pkg.title || pkg.name
 		let pageTitle = this.props.title
-		let title
-		if(pageTitle){
-			title = `${pageTitle}${delimeter}${siteName}`
+		let displayTitle
+		if (pageTitle) {
+			displayTitle = `${pageTitle}${delimeter}${siteName}`
 		}
-		else if(pkg.description){
-			title = `${siteName}${delimeter}${pkg.description}`
+		else if (description) {
+			displayTitle = `${siteName}${delimeter}${description}`
 		}
-		else{
-			title = siteName
+		else {
+			displayTitle = siteName
 		}
 		return (
-			<div>
+			<div className={`cont ${!pageTitle && 'home'}`}>
 				<Head>
-					<title>{ title }</title>
+					<title>{displayTitle}</title>
 					<meta charSet='utf-8' />
 					<meta name='viewport' content='initial-scale=1.0, width=device-width' />
-					<meta content={ this.props.description ? this.props.description : pkg.description } name='description' />
-					<style>{ style }</style>
-					<link type='text/css' rel='stylesheet' href='https://zygote.netlify.com/zygote-v1.css' />
-					<link rel='icon' type='image/x-icon' href='/static/img/favicon.ico' />
+					<meta content={this.props.description ? this.props.description : description} name='description' />
+					<style>{style}</style>
+					<link rel='icon' type='image/png' href='/static/img/favicon.png' />
+					<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" />
+					{!env.DISABLE_ECOMMERCE &&
+						<link type='text/css' rel='stylesheet' href='https://zygote.netlify.com/zygote-v1.css' />
+					}
 				</Head>
-				<Header handleDealerSearch={this.handleDealerSearch} />
-				{ this.props.children }
-				<NoSSR onSSR={<Loader />}>
-					<Modal open={this.state.mapOpen} onClose={() => this.setState({mapOpen: false})}>
-						<DealerLocator label="Find a dealer or local store near you" name="dealerLocator-standalone" brand="goalrilla" mapStyles={ mapStyles.styles } distance="30" zip={this.state.mapZip} />
-					</Modal>
-				</NoSSR>
-				<Footer handleDealerSearch={this.handleDealerSearch} />
-				<script src='https://zygote.netlify.com/zygote-v1.js'></script>
+				{this.props.children}
+				<Loader loading={this.state.loading} />
+				{!env.DISABLE_ECOMMERCE &&
+					<script src='https://zygote.netlify.com/zygote-v1.js' />
+				}
 			</div>
 		)
 	}

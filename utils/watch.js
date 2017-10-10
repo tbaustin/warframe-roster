@@ -1,6 +1,5 @@
 'use strict'
 const chokidar = require('chokidar')
-const images = require('./images')
 const cpy = require('cpy')
 
 const watchSettings = {
@@ -12,12 +11,6 @@ function watch(files, fn){
 		.on('add', fn)
 		.on('change', fn)
 }
-
-// Watch images for changes
-watch(`img/**/*`, path => {
-	path = path.replace('img/', '')
-	images(path)
-})
 
 watch(`fonts/**/*`, path => {
 	path = path.replace('fonts/', '')
