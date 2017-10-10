@@ -31,8 +31,8 @@
 		"serve-static": "node utils/serve-static",
 		"edit": "node utils/markdown-edit",
 		"env": "node utils/env",
-		"salsify-check": "yarn salsify && node utils/salsify-check",
-		"test": "yarn replace-images"
+		"salsify-check": "npm run salsify && node utils/salsify-check",
+		"test": "npm run replace-images"
 	},
 	"devDependencies": {
 		"autoprefixer": "^7.1.1",

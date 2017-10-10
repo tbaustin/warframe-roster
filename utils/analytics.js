@@ -1,14 +1,14 @@
 import ReactGA from 'react-ga'
-import config from '../config/config'
+import env from 'config/env.json'
 
 export const initGA = () => {
-	if (!config.analyticsId) return
+	if (!env.GOOGLE_ANALYTICS_ID) return
 	console.log('Google Analytics init')
-	ReactGA.initialize(config.analyticsId)
+	ReactGA.initialize(env.GOOGLE_ANALYTICS_ID)
 }
 
 export const logPageView = () => {
-	if (!config.analyticsId) return
+	if (!env.GOOGLE_ANALYTICS_ID) return
 	console.log(`Logging pageview for ${window.location.pathname}`)
 	ReactGA.set({ page: window.location.pathname })
 	ReactGA.pageview(window.location.pathname)
@@ -16,7 +16,7 @@ export const logPageView = () => {
 
 export const logEvent = (category = '', action = '') => {
 	console.log('Logging event')
-	if (!config.analyticsId) return
+	if (!env.GOOGLE_ANALYTICS_ID) return
 	if(category && action){
 		ReactGA.event({ category, action })
 	}
@@ -24,7 +24,7 @@ export const logEvent = (category = '', action = '') => {
 
 export const logException = (description = '', fatal = false) => {
 	console.log('Logging exception')
-	if (!config.analyticsId) return
+	if (!env.GOOGLE_ANALYTICS_ID) return
 	if (description) {
 		ReactGA.exception({ description, fatal })
 	}

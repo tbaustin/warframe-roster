@@ -3,7 +3,6 @@ const glob = require('glob-promise')
 const fs = require('fs-extra')
 
 module.exports = {
-	port: 3000,
 	poweredByHeader: false,
 	exportPathMap: () => {
 		return new Promise((resolve, reject) => {
@@ -22,7 +21,7 @@ module.exports = {
 	webpack: (config, obj) => {
 		config.module.rules.push(
 			{
-				test: /\.(css|scss)/,
+				test: /\.css$/,
 				loader: 'emit-file-loader',
 				options: {
 					name: 'dist/[path][name].[ext]'
@@ -37,7 +36,6 @@ module.exports = {
 				]
 			}
 		)
-		//config.plugins.push(new OpenBrowserPlugin({ url: 'http://localhost:3000/' }))
 		return config
 	}
 }

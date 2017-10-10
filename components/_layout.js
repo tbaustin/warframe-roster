@@ -8,9 +8,10 @@ import Loader from 'components/page-load-animation'
 import Head from 'next/head'
 import detectIe from 'detectie'
 import env from '../config/env.json'
+import {name} from '../package.json'
 
-const siteName = 'Bear Archery'
-const description = 'Walk Among Legends'
+const siteName = 'Website Title'
+const description = 'Website description'
 
 fastclick()
 

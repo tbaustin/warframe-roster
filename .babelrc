@@ -1,13 +1,13 @@
 {
 	"plugins": [
 		[
-			"module-resolver",
-			{
-				"root": [
-					"."
-				],
+			"module-resolver", {
+				"root": ["."],
 				"alias": {
-					"styles": "./styles"
+					"styles": "./styles",
+					"config": "./config",
+					"json": "./json",
+					"utils": "./utils"
 				},
 				"cwd": "babelrc"
 			}
@@ -20,14 +20,7 @@
 				"preprocess": false
 			}
 		],
-		[
-			"wrap-in-js",
-			{
-				"extensions": [
-					"css$"
-				]
-			}
-		],
+		["wrap-in-js", { "extensions": ["css$"] }],
 		"transform-inline-environment-variables",
 		"babel-plugin-dotenv",
 		"inline-react-svg"
