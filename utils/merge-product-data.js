@@ -1,21 +1,16 @@
 'use strict'
 const path = require('path')
 const fs = require('fs-extra')
-const glob = require('glob-all')
+const glob = require('globby')
 const dirs = [
 	'./json/markdown/product',
 	'./json/salsify'
 ]
 
 function getJsonPaths(dirs){
-	return new Promise((resolve, reject) => {
-		console.log('Getting product JSON paths...')
-		let globStrs = dirs.map(dir => `${dir}/**/*.json`)
-		glob(globStrs, (err, res) => {
-			if(err) return reject(err)
-			resolve(res)
-		})
-	})
+	console.log('Getting product JSON paths...')
+	let globStrs = dirs.map(dir => `${dir}/**/*.json`)
+	return glob(globStrs)
 }
 
 function getData(paths){

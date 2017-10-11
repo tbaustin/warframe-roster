@@ -1,5 +1,5 @@
 'use strict'
-const glob = require('glob-promise')
+const glob = require('globby')
 const fs = require('fs-extra')
 
 // Get all JSON paths

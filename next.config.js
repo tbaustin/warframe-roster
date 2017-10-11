@@ -1,5 +1,3 @@
-const path = require('path')
-const glob = require('glob-promise')
 const fs = require('fs-extra')
 
 module.exports = {
@@ -16,18 +14,32 @@ module.exports = {
 
 
 
-			// Product pages
+			// Product & category pages
 			.then(() => fs.readJson('./json/product/all.json'))
 			.then(products => {
 				for (let i in products) {
 					const product = products[i]
 					if (product.render === false) continue
+
+					// Category
+					let categoryPath = `/category/${product.category}`
+					if (!pages[categoryPath]) {
+						pages[categoryPath] = {
+							page: '/category',
+							query: { id: product.category }
+						}
+					}
+
+					// Product
 					pages[`/product/${product.id}`] = {
 						page: '/product',
 						query: { id: product.id }
 					}
+
 				}
+				return products
 			})
+
 
 			.then(() => pages)
 			.catch(console.error)

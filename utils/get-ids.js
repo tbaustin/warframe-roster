@@ -1,6 +1,6 @@
 'use strict'
 const path = require('path')
-const glob = require('glob-promise')
+const glob = require('globby')
 
 module.exports = uppercase => new Promise((resolve, reject) => {
    glob('./markdown/product/**/*.md')

@@ -58,8 +58,6 @@
 		"form-serialize": "^0.7.2",
 		"front-matter": "^2.2.0",
 		"fs-extra": "^4.0.0",
-		"glob-all": "^3.1.0",
-		"glob-promise": "^3.1.0",
 		"globby": "^6.1.0",
 		"google-map-react": "^0.24.0",
 		"googleapis": "^21.3.0",

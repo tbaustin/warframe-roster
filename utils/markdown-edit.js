@@ -1,7 +1,7 @@
 'use strict'
 const frontMatter = require('front-matter')
 const yamlConverter = require('json2yaml')
-const glob = require('glob-promise')
+const glob = require('globby')
 const fs = require('fs-extra')
 
 function findAllMarkdown(){

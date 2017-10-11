@@ -1,6 +1,6 @@
 'use strict'
 require('dotenv').config({ silent: true })
-const glob = require('glob-promise')
+const glob = require('globby')
 const fs = require('fs-extra')
 const properties = require('../config/salsify-properties')
 
