@@ -5,18 +5,32 @@ const fs = require('fs-extra')
 module.exports = {
 	poweredByHeader: false,
 	exportPathMap: () => {
-		return new Promise((resolve, reject) => {
-			const pages = {}
+		const pages = {}
 
-			Promise.resolve()
+		return Promise.resolve()
 
-				.then(() => {
-					resolve(Object.assign({
-						'/': { page: '/' }
-					}, pages))
-				})
-				.catch(console.error)
-		})
+			// Home page
+			.then(() => {
+				pages['/'] = { page: '/' }
+			})
+
+
+
+			// Product pages
+			.then(() => fs.readJson('./json/product/all.json'))
+			.then(products => {
+				for (let i in products) {
+					const product = products[i]
+					if (product.render === false) continue
+					pages[`/product/${product.id}`] = {
+						page: '/product',
+						query: { id: product.id }
+					}
+				}
+			})
+
+			.then(() => pages)
+			.catch(console.error)
 	},
 	webpack: (config, obj) => {
 		config.module.rules.push(

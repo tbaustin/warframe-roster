@@ -20,23 +20,8 @@ module.exports = {
 	},
 
 	// Images
-	thumbnails: {
-		property: 'Web Images',
-		transformations: [
-			'w_200'
-		]
-	},
-	medium: {
-		property: 'Web Images',
-		transformations: [
-			'h_500'
-		]
-	},
 	images: {
 		property: 'Web Images',
-		transformations: [
-			'h_950',
-			//'e_shadow:90,x_15,y_15'
-		]
+		type: 'media'
 	}
 }

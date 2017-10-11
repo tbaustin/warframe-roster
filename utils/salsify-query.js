@@ -17,11 +17,11 @@ function mutateData(obj, schema) {
 			res[i] = obj[schema[i]]
 		}
 		// Assets
-		else if (schema[i].transformations) {
+		else if (schema[i].type === 'media') {
 			res[i] = obj[schema[i].property]
 			if (typeof res[i] === 'string') res[i] = [res[i]]
 			if (res[i]) {
-				res[i] = res[i].map(id => findAsset(obj, id, schema[i].transformations))
+				res[i] = res[i].map(id => findAsset(obj, id))
 			}
 			else {
 				res[i] = []
@@ -37,16 +37,13 @@ function mutateData(obj, schema) {
 	return res
 }
 
-function findAsset(obj, id, arr) {
+function findAsset(obj, id) {
 	if(!obj.salsify_digital_assets) obj.salsify_digital_assets = []
 	for (let i = obj['salsify:digital_assets'].length; i--;) {
 		const asset = obj['salsify:digital_assets'][i]
 		if (asset['salsify:id'] === id) {
 			let url = asset['salsify:url'].split('/')
 			url[0] = 'https:'
-			let name = url.pop()
-			url.push(...arr)
-			url.push(name)
 			url = url.join('/')
 			return url
 		}

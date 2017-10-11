@@ -32,6 +32,7 @@ fs.pathExists('./json')
 			.then(router)
 			.then(routes => {
 				console.log(`Exposing app on port ${port}...`)
+				console.log('Routes:', routes)
 				const server = express()
 				//console.log('ROUTES:', JSON.stringify(routes, null, 3))
 				for (let i in routes) {
