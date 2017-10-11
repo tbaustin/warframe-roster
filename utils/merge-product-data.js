@@ -15,9 +15,7 @@ function getJsonPaths(dirs){
 
 function getData(paths){
 	console.log('Getting product JSON data...')
-	let promises = paths.map(path => {
-		return fs.readJson(path)
-	})
+	let promises = paths.map(path => fs.readJson(path))
 	return Promise.all(promises)
 		.then(data => {
 			let obj = {}
@@ -48,10 +46,15 @@ function saveJson(obj){
 	console.log('Saving merged product JSON data...')
 	let promises = []
 	let all = []
+	let ids = []
 	for(let id in obj){
 		all.push(obj[id])
+		if(ids.indexOf(id) === -1){
+			ids.push(id)
+		}
 		promises.push(fs.outputJson(`./json/product/${id}.json`, obj[id], { spaces: '\t' }))
 	}
+	promises.push(fs.outputJson(`./json/product-ids.json`, ids, { spaces: '\t' }))
 	return Promise.all(promises)
 }
 
