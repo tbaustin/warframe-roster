@@ -17,6 +17,11 @@ export default class extends React.Component {
 					</Link>
 				</div>
 				<div>
+					<Link href='/page?id=about' as='/about'>
+						<a>About</a>
+					</Link>
+				</div>
+				<div>
 					<Link href='/contact?id=contact' as='/contact'>
 						<a>Contact</a>
 					</Link>

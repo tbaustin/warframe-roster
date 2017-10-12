@@ -54,7 +54,7 @@ module.exports = {
 						permalink = `/${permalink}`
 					}
 					pages[permalink] = {
-						page: `/${obj.template}` || '/page',
+						page: obj.template ? `/${obj.template}` : '/page',
 						query: {
 							id: id
 						}
