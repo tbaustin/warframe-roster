@@ -22,6 +22,3 @@ static
 temp
 tmp
 temp-*
-
-# Remove for production
-img/salsify
