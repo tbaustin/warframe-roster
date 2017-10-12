@@ -21,8 +21,6 @@
 			}
 		],
 		["wrap-in-js", { "extensions": ["css$"] }],
-		"transform-inline-environment-variables",
-		"babel-plugin-dotenv",
 		"inline-react-svg"
 	],
 	"presets": [
