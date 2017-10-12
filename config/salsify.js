@@ -1,5 +1,3 @@
-// http://cloudinary.com/documentation/image_transformations
-
 'use strict'
 module.exports = {
 	price: {

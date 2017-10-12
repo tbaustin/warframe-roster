@@ -48,7 +48,6 @@ module.exports = {
 				markdown.forEach(file => {
 					const obj = require(file)
 					const id = path.parse(file).name
-					if(id === 'all') return
 					let permalink = obj.permalink || `/${id}`
 					if (permalink[0] !== '/') {
 						permalink = `/${permalink}`

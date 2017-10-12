@@ -14,7 +14,7 @@ function removeAllJson(arr){
 		return true
 	 })
 }
-glob('json/**/*.json')
+glob(['json/**/*.json', '!json/markdown/**/*.json'])
 
 	// Get all file contents
 	.then(list => {
@@ -51,7 +51,11 @@ glob('json/**/*.json')
 
 	// Get only the files in those directories
 	.then(dirs => {
-		const promises = dirs.map(dir => glob(`${dir}/**/*.json`))
+		const promises = dirs.map(dir => {
+			return glob([
+				`${dir}/**/*.json`
+			])
+		})
 		return Promise.all(promises)
 	})
 	.then(contents => {
