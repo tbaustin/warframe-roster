@@ -10,7 +10,6 @@ import env from 'json/env.json'
 import createTitle from 'utils/create-page-title'
 import createDescription from 'utils/create-page-description'
 
-
 fastclick()
 
 export default class Layout extends React.Component {

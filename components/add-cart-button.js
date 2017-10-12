@@ -2,6 +2,7 @@ import React from 'react'
 import settings from 'components/_settings'
 import fetch from 'isomorphic-fetch'
 import fetchStock from 'utils/get-stock'
+import env from '../json/env.json'
 
 // How often real time stock updates, min/sec/mili
 const updateStockInterval = 20 * 60 * 1000
@@ -15,6 +16,7 @@ export default class extends React.Component {
 		this.updateStock = this.updateStock.bind(this)
 	}
 	updateStock() {
+		if (!env.DISABLE_ECOMMERCE) return
 		fetchStock()
 			.then(stock => {
 				window.productStock = stock
@@ -22,8 +24,8 @@ export default class extends React.Component {
 			})
 			.catch(err => { throw err })
 	}
-	componentDidMount(){
-		console.log('component mounted')
+	componentDidMount() {
+		if (!env.DISABLE_ECOMMERCE) return
 		if(!window.productStock){
 			this.updateStock()
 			setInterval(this.updateStock, updateStockInterval)

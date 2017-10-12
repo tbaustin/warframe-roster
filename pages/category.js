@@ -8,7 +8,6 @@ export default class extends React.Component {
 	}
 	static async getInitialProps(req) {
 		let product = require(`../json/category/${req.query.id}`)
-		console.log(product)
 		return {
 			id: req.query.id,
 			product: product

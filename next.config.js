@@ -6,6 +6,11 @@ module.exports = {
 	poweredByHeader: false,
 	exportPathMap: () => {
 		const pages = {}
+		let templatePages = [
+			'/category',
+			'/product',
+			'/index'
+		]
 
 		return Promise.resolve()
 
@@ -52,10 +57,29 @@ module.exports = {
 					if (permalink[0] !== '/') {
 						permalink = `/${permalink}`
 					}
+					let template = '/page'
+					if (obj.template) template = `/${obj.template}`
+					if(templatePages.indexOf(template) === -1){
+						templatePages.push(template)
+					}
 					pages[permalink] = {
-						page: obj.template ? `/${obj.template}` : '/page',
+						page: template,
 						query: {
 							id: id
+						}
+					}
+				})
+			})
+
+
+			// Component pages
+			.then(() => glob('./pages/*.js'))
+			.then(files => {
+				files.forEach(file => {
+					let pageId = `/${path.parse(file).name}`
+					if (templatePages.indexOf(pageId) === -1) {
+						pages[pageId] = {
+							page: pageId
 						}
 					}
 				})
