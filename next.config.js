@@ -61,7 +61,7 @@ module.exports = {
 				})
 			})
 
-			.then(() => console.log(pages))
+			//.then(() => console.log(pages))
 			.then(() => pages)
 			.catch(console.error)
 	},
