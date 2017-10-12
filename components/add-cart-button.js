@@ -16,22 +16,24 @@ export default class extends React.Component {
 		this.updateStock = this.updateStock.bind(this)
 	}
 	updateStock() {
-		if (env.DISABLE_ECOMMERCE) return
-		fetchStock()
-			.then(stock => {
-				window.productStock = stock
-				this.setState({ stock: stock })
-			})
-			.catch(err => { throw err })
+		if (env.ENABLE_ECOMMERCE) {
+			fetchStock()
+				.then(stock => {
+					window.productStock = stock
+					this.setState({ stock: stock })
+				})
+				.catch(err => { throw err })
+		}
 	}
 	componentDidMount() {
-		if (env.DISABLE_ECOMMERCE) return
-		if(!window.productStock){
-			this.updateStock()
-			setInterval(this.updateStock, updateStockInterval)
-		}
-		else if(typeof window.productStock === 'object'){
-			this.setState({ stock: window.productStock })
+		if (env.ENABLE_ECOMMERCE) {
+			if (!window.productStock) {
+				this.updateStock()
+				setInterval(this.updateStock, updateStockInterval)
+			}
+			else if (typeof window.productStock === 'object') {
+				this.setState({ stock: window.productStock })
+			}
 		}
 	}
 	render() {
