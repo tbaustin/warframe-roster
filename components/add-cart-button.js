@@ -16,7 +16,7 @@ export default class extends React.Component {
 		this.updateStock = this.updateStock.bind(this)
 	}
 	updateStock() {
-		if (!env.DISABLE_ECOMMERCE) return
+		if (env.DISABLE_ECOMMERCE) return
 		fetchStock()
 			.then(stock => {
 				window.productStock = stock
@@ -25,7 +25,7 @@ export default class extends React.Component {
 			.catch(err => { throw err })
 	}
 	componentDidMount() {
-		if (!env.DISABLE_ECOMMERCE) return
+		if (env.DISABLE_ECOMMERCE) return
 		if(!window.productStock){
 			this.updateStock()
 			setInterval(this.updateStock, updateStockInterval)
