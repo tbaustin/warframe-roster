@@ -93,7 +93,7 @@ export default class Layout extends React.Component {
 					<meta content={createDescription('Website description', this.props.description)} name='description' />
 
 					<style>{style}</style>
-					<link rel='icon' type='image/png' href='/static/img/favicon.png' />
+					<link rel='icon' type='image/png' href='/static/img/w_32/favicon.png' />
 					<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" />
 					{!env.DISABLE_ECOMMERCE &&
 						<link type='text/css' rel='stylesheet' href='https://zygote.netlify.com/zygote-v1.css' />
