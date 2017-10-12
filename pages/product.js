@@ -1,6 +1,7 @@
 import React from 'react'
 import Layout from 'components/_layout'
 import cloudinary from 'utils/cloudinary'
+import AddToCart from 'components/add-cart-button'
 
 export default class extends React.Component {
 	constructor(props){
@@ -17,6 +18,9 @@ export default class extends React.Component {
 				{this.props.images && this.props.images.length &&
 					<img src={cloudinary(this.props.images[0], 'w_200')} />
 				}
+				<AddToCart
+					id={this.props.id}
+					/>
 				<style jsx>{`
 
 				`}</style>

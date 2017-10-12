@@ -13,7 +13,7 @@ import createDescription from 'utils/create-page-description'
 
 fastclick()
 
-class Layout extends React.Component {
+export default class Layout extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -108,6 +108,3 @@ class Layout extends React.Component {
 		)
 	}
 }
-
-
-export default withRedux()
