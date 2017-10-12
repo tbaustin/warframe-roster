@@ -16,6 +16,11 @@ export default class extends React.Component {
 						<a>Category</a>
 					</Link>
 				</div>
+				<div>
+					<Link href='/contact?id=contact' as='/contact'>
+						<a>Contact</a>
+					</Link>
+				</div>
 			</Layout>
 		)
 	}

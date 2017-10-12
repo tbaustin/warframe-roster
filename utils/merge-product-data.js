@@ -6,6 +6,7 @@ const dirs = [
 	'./json/markdown/product',
 	'./json/salsify'
 ]
+const jsonOpt = { spaces: '\t' }
 
 function getJsonPaths(dirs){
 	console.log('Getting product JSON paths...')
@@ -47,14 +48,29 @@ function saveJson(obj){
 	let promises = []
 	let all = []
 	let ids = []
+	let categories = {}
 	for(let id in obj){
-		all.push(obj[id])
+		let prod = obj[id]
+		all.push(prod)
 		if(ids.indexOf(id) === -1){
 			ids.push(id)
 		}
-		promises.push(fs.outputJson(`./json/product/${id}.json`, obj[id], { spaces: '\t' }))
+		if(prod.category){
+			if(!(prod.category in categories)){
+				categories[prod.category] = []
+			}
+			categories[prod.category].push(prod)
+		}
+		promises.push(fs.outputJson(`./json/product/${id}.json`, prod, jsonOpt))
 	}
-	promises.push(fs.outputJson(`./json/product-ids.json`, ids, { spaces: '\t' }))
+
+	// Categories file
+	for(let id in categories){
+		promises.push(fs.outputJson(`./json/category/${id}.json`, categories[id], jsonOpt))
+	}
+
+	// Product IDs file
+	promises.push(fs.outputJson(`./json/product-ids.json`, ids, jsonOpt))
 	return Promise.all(promises)
 }
 
