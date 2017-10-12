@@ -31,8 +31,7 @@
 		"serve-static": "node utils/serve-static",
 		"edit": "node utils/markdown-edit",
 		"env": "node utils/env",
-		"salsify-check": "npm run salsify && node utils/salsify-check",
-		"test": "npm run replace-images"
+		"salsify-check": "npm run salsify && node utils/salsify-check"
 	},
 	"devDependencies": {
 		"babel-plugin-inline-react-svg": "^0.4.0",
@@ -50,7 +49,6 @@
 		"dotenv": "^4.0.0",
 		"express": "^4.15.3",
 		"form-serialize": "^0.7.2",
-		"front-matter": "^2.2.0",
 		"fs-extra": "^4.0.0",
 		"globby": "^6.1.0",
 		"google-map-react": "^0.24.0",

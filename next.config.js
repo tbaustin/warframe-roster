@@ -1,4 +1,6 @@
 const fs = require('fs-extra')
+const glob = require('globby')
+const path = require('path')
 
 module.exports = {
 	poweredByHeader: false,
@@ -11,8 +13,6 @@ module.exports = {
 			.then(() => {
 				pages['/'] = { page: '/' }
 			})
-
-
 
 			// Product & category pages
 			.then(() => fs.readJson('./json/product/all.json'))
@@ -38,6 +38,28 @@ module.exports = {
 
 				}
 				return products
+			})
+
+
+
+			// Markdown pages
+			.then(() => glob(['./json/markdown/pages/*.json']))
+			.then(markdown => {
+				markdown.forEach(file => {
+					const obj = require(file)
+					const id = path.parse(file).name
+					let permalink = obj.permalink || `/${id}`
+					if (permalink[0] !== '/') {
+						permalink = `/${permalink}`
+					}
+					pages[permalink] = {
+						page: `/${obj.template}` || '/page',
+						query: {
+							id: id
+						}
+					}
+					console.log(pages)
+				})
 			})
 
 
