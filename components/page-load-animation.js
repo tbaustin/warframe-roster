@@ -41,13 +41,6 @@ export default class extends React.Component {
 					.loading{
 						display: block;
 					}
-					@media(min-width: 1024px){
-						div{
-							right: 1px;
-							left: 91px;
-							background-color: transparent;
-						}
-					}
 				`}</style>
 			</div>
 		)
