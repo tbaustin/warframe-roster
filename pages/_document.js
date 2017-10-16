@@ -2,7 +2,6 @@ import Document, { Head, Main, NextScript } from 'next/document'
 import flush from 'styled-jsx/server'
 import Layout from 'components/_layout'
 import style from 'components/_global-styles.css'
-import env from 'json/env.json'
 import Zygote from 'components/zygote'
 
 export default class MyDocument extends Document {
@@ -23,9 +22,7 @@ export default class MyDocument extends Document {
 				<body>
 					<Main />
 					<NextScript />
-					{env.ENABLE_ECOMMERCE &&
-						<Zygote />
-					}
+					<Zygote />
 				</body>
 			</html>
 		)
