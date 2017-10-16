@@ -26,7 +26,7 @@
 		"terms-of-service": "node utils/markdown/markdown-modules -m terms-of-service",
 		"clean": "node utils/build/clean",
 		"salsify": "node utils/salsify/salsify",
-		"merge-product-data": "node utils/merge-product-data",
+		"merge-product-data": "node utils/product/merge-product-data",
 		"replace-images": "node utils/images/replace-images",
 		"serve-static": "node utils/serve-static",
 		"edit": "node utils/markdown/markdown-edit",

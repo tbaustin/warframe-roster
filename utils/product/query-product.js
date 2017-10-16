@@ -10,7 +10,7 @@ catch (e) {
 
 if (products === false) {
 	try {
-		products = require('../json/product/all.json')
+		products = require('../../json/product/all.json')
 	}
 	catch (e) {
 		console.error('json/product/all.json not found')

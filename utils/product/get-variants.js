@@ -1,5 +1,5 @@
 'use strict'
-const categories = require('../config/product.config')
+const categories = require('../../config/product.config')
 const variants = []
 // Get all variants
 for(let i in categories){
