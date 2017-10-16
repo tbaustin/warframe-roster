@@ -31,6 +31,7 @@
 		"serve-static": "node utils/serve-static",
 		"edit": "node utils/markdown-edit",
 		"env": "node utils/env",
+		"update": "node utils/update",
 		"salsify-check": "npm run salsify && node utils/salsify-check"
 	},
 	"devDependencies": {
