@@ -1,4 +1,4 @@
-import { routerAdd } from 'utils/router-events'
+import { routerAdd } from 'utils/next/router-events'
 
 let loadTimeout
 

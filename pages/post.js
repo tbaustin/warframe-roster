@@ -2,7 +2,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Layout from 'components/_layout'
-import queryPosts from 'utils/query-posts'
+import queryPosts from 'utils/posts/query-posts'
 import moment from 'moment'
 import TagLinks from 'components/posts/tag-links'
 

@@ -12,7 +12,7 @@ module.exports = function(query, opt){
 
 	if (data === false) {
 		try {
-			data = require(`../json/markdown/posts/all.json`)
+			data = require(`../../json/markdown/posts/all.json`)
 		}
 		catch (e) {
 			console.log(`json/markdown/posts/all.json not found`)

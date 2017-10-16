@@ -3,7 +3,7 @@ const argv = require('minimist')(process.argv.slice(2))
 const matter = require('gray-matter')
 const marked = require('marked')
 const fs = require('fs-extra')
-const pkg = require(`../node_modules/${argv.m}/package.json`)
+const pkg = require(`../../node_modules/${argv.m}/package.json`)
 
 const path = `./node_modules/${argv.m}/${pkg.main}`
 const out = `./json/markdown/pages/${argv.m}.json`

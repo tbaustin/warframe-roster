@@ -1,6 +1,6 @@
 import ReactGA from 'react-ga'
 import env from 'json/env.json'
-import { routerAdd } from 'utils/router-events'
+import { routerAdd } from 'utils/next/router-events'
 
 export const initGA = () => {
 	if (!window.GA_INITIALIZED) {

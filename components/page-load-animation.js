@@ -1,5 +1,5 @@
 import React from 'react'
-import { routerAdd, routerRemove } from 'utils/router-events'
+import { routerAdd, routerRemove } from 'utils/next/router-events'
 import settings from 'components/_settings'
 
 export default class extends React.Component {
