@@ -23,7 +23,7 @@ export default class extends React.Component{
 
 		// Show loading
 		this.setState({
-			results: '<Loader />',
+			results: <Loader />,
 			className: 'processing'
 		})
 
