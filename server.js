@@ -9,7 +9,7 @@ const exec = require('child-process-promise').exec
 const fs = require('fs-extra')
 const open = require('open')
 const sharp = require('sharp')
-const transform = require('./utils/transform-image')
+const transform = require('./utils/images/transform-image')
 
 console.log('Checking for prebuild files...')
 fs.pathExists('./json')

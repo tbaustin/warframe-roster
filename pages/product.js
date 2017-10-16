@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from 'components/_layout'
-import cloudinary from 'utils/cloudinary'
+import cloudinary from 'utils/images/cloudinary'
 import AddToCart from 'components/add-cart-button'
 
 export default class extends React.Component {

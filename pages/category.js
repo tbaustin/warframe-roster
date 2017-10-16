@@ -1,6 +1,5 @@
 import React from 'react'
 import Layout from 'components/_layout'
-import cloudinary from 'utils/cloudinary'
 
 export default class extends React.Component {
 	constructor(props){

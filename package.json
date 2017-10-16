@@ -27,7 +27,7 @@
 		"clean": "node utils/clean",
 		"salsify": "node utils/salsify/salsify",
 		"merge-product-data": "node utils/merge-product-data",
-		"replace-images": "node utils/replace-images",
+		"replace-images": "node utils/images/replace-images",
 		"serve-static": "node utils/serve-static",
 		"edit": "node utils/markdown/markdown-edit",
 		"env": "node utils/env",
