@@ -7,9 +7,10 @@ module.exports = {
 	exportPathMap: () => {
 		const pages = {}
 		let templatePages = [
+			'/_document',
+			'/index',
 			'/category',
 			'/product',
-			'/index',
 			'/post'
 		]
 

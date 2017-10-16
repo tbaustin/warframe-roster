@@ -27,16 +27,9 @@ export default class extends React.Component {
 						<a>Contact</a>
 					</Link>
 				</div>
-				<section>
-					<div>1</div>
-					<div>2</div>
-				</section>
 				<style jsx>{`
 					section{
 						lost-utility: clearfix;
-						div{
-							lost-column: 1/2;
-						}
 					}
 				`}</style>
 			</Layout>

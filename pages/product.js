@@ -21,9 +21,6 @@ export default class extends React.Component {
 				<AddToCart
 					id={this.props.id}
 					/>
-				<style jsx>{`
-
-				`}</style>
 			</Layout>
 		)
 	}

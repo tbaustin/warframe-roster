@@ -1,7 +1,6 @@
 import React from 'react'
 import { routerAdd, routerRemove } from 'utils/router-events'
-import { initGA, logPageView } from 'utils/analytics'
-import style from 'components/_global-styles.css'
+import { initGA } from 'utils/analytics'
 import fastclick from 'react-fastclick'
 import PageLoadBar from 'components/page-load-animation'
 import Head from 'next/head'
@@ -9,6 +8,7 @@ import env from 'json/env.json'
 import createTitle from 'utils/create-page-title'
 import createDescription from 'utils/create-page-description'
 import NoSSR from 'react-no-ssr'
+import style from 'components/_global-styles.css'
 
 fastclick()
 
@@ -29,11 +29,7 @@ export default class Layout extends React.Component {
 	}
 	componentDidMount() {
 		// Google Analytics
-		if (!window.GA_INITIALIZED) {
-			initGA()
-			window.GA_INITIALIZED = true
-			logPageView()
-		}
+		initGA()
 
 		// Zygote
 		if ('zygote' in window) {
@@ -66,31 +62,16 @@ export default class Layout extends React.Component {
 	}
 	routerDone() {
 		this.clearTimeouts()
-		logPageView()
 	}
 	render() {
 		return (
 			<div>
 				<Head>
-					<meta charSet='utf-8' />
-					<meta name='viewport' content='initial-scale=1.0, width=device-width' />
-
 					<title>{createTitle('Website Title', 'Website description', this.props.title)}</title>
 					<meta content={createDescription('Website description', this.props.description)} name='description' />
-
-					<style>{style}</style>
-					<link rel='icon' type='image/png' href='/static/img/w_32/favicon.png' />
-					{env.ENABLE_ECOMMERCE &&
-						<link type='text/css' rel='stylesheet' href='https://zygote.netlify.com/zygote-v1.css' />
-					}
 				</Head>
 				{this.props.children}
-				<NoSSR>
-					<PageLoadBar />
-				</NoSSR>
-				{env.ENABLE_ECOMMERCE &&
-					<script src='https://zygote.netlify.com/zygote-v1.js' />
-				}
+
 			</div>
 		)
 	}
