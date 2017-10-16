@@ -15,13 +15,6 @@ export default class extends React.Component{
 					<Textarea label='Message:' name='message' required />
 					<Button type='submit' />
 				</div>
-				<style jsx>{`
-					.processing{
-						& div{
-							display: none;
-						}
-					}
-				`}</style>
 			</Form>
 		)
 	}

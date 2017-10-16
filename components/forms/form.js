@@ -122,7 +122,7 @@ export default class extends React.Component {
 				}
 				<style jsx>{`
 					.processing{
-						& .formContents{
+						.formContents{
 							display: none;
 						}
 					}
