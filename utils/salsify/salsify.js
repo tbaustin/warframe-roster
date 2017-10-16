@@ -1,8 +1,8 @@
 'use strict'
 require('dotenv').config({ silent: true })
 const query = require('./salsify-query')
-const getIds = require('./get-ids')
-const config = require('../config/salsify.js')
+const getIds = require('../get-ids')
+const config = require('../../config/salsify.js')
 const fs = require('fs-extra')
 
 // Fetch product from Salsify

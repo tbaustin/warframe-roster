@@ -25,14 +25,14 @@
 		"privacy-policy": "node utils/markdown-modules -m privacy-policy",
 		"terms-of-service": "node utils/markdown-modules -m terms-of-service",
 		"clean": "node utils/clean",
-		"salsify": "node utils/salsify",
+		"salsify": "node utils/salsify/salsify",
 		"merge-product-data": "node utils/merge-product-data",
 		"replace-images": "node utils/replace-images",
 		"serve-static": "node utils/serve-static",
 		"edit": "node utils/markdown-edit",
 		"env": "node utils/env",
 		"update": "node utils/update",
-		"salsify-check": "npm run salsify && node utils/salsify-check"
+		"salsify-check": "npm run salsify && node utils/salsify/salsify-check"
 	},
 	"devDependencies": {
 		"babel-plugin-inline-react-svg": "^0.4.0",
