@@ -32,6 +32,7 @@ export default class extends React.Component {
 				if (!this.props.google) {
 					e.preventDefault()
 					const data = serialize(e.target)
+					console.log(data)
 					const action = e.target.getAttribute('action')
 					fetch(action, {
 							method: 'POST',
