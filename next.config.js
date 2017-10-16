@@ -9,7 +9,8 @@ module.exports = {
 		let templatePages = [
 			'/category',
 			'/product',
-			'/index'
+			'/index',
+			'/post'
 		]
 
 		return Promise.resolve()
