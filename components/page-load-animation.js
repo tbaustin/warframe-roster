@@ -12,7 +12,6 @@ export default class extends React.Component {
 		this.clearTimeouts = this.clearTimeouts.bind(this)
 	}
 	componentWillMount() {
-		console.log('Page load animation mounting...')
 		// Progress bar
 		this.clearTimeouts()
 		routerAdd('onRouteChangeStart', this.routerStart)
@@ -28,7 +27,6 @@ export default class extends React.Component {
 		clearTimeout(this.uiTimeout)
 	}
 	showLoader() {
-		console.log('Showing loader...')
 		clearTimeout(this.uiTimeout)
 		this.setState({ loading: true })
 	}
@@ -37,7 +35,6 @@ export default class extends React.Component {
 		this.uiTimeout = setTimeout(this.showLoader.bind(this), 100)
 	}
 	routerDone() {
-		console.log('Load animation router done.')
 		this.clearTimeouts()
 		this.setState({ loading: false })
 	}

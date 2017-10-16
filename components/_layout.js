@@ -8,15 +8,13 @@ import Head from 'next/head'
 import env from 'json/env.json'
 import createTitle from 'utils/create-page-title'
 import createDescription from 'utils/create-page-description'
+import NoSSR from 'react-no-ssr'
 
 fastclick()
 
 export default class Layout extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			loading: false
-		}
 		this.routerStart = this.routerStart.bind(this)
 		this.routerDone = this.routerDone.bind(this)
 		this.routerError = this.routerError.bind(this)
@@ -67,7 +65,6 @@ export default class Layout extends React.Component {
 		document.location = url || '/404'
 	}
 	routerDone() {
-		console.log('Layout router done.')
 		this.clearTimeouts()
 		logPageView()
 	}
@@ -88,7 +85,9 @@ export default class Layout extends React.Component {
 					}
 				</Head>
 				{this.props.children}
-				<PageLoadBar loading={this.state.loading} />
+				<NoSSR>
+					<PageLoadBar />
+				</NoSSR>
 				{env.ENABLE_ECOMMERCE &&
 					<script src='https://zygote.netlify.com/zygote-v1.js' />
 				}
