@@ -27,5 +27,12 @@
 			}
 		}]
 	],
-	"ignore": []
+	"ignore": [],
+	"env": {
+		"production": {
+			"plugins": [
+				["transform-remove-console"]
+			]
+		}
+	}
 }
