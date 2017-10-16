@@ -2,7 +2,7 @@
 const exec = require('child-process-promise').exec
 const fs = require('fs-extra')
 const cpy = require('cpy')
-const curPkg = require('package.json')
+const curPkg = require('../package.json')
 
 console.log('Updating boilerplate...')
 fs.remove('temp-update')
@@ -30,7 +30,7 @@ fs.remove('temp-update')
 	})
 	.then(() => {
 		console.log('Adding new dependencies...')
-		const newPkg = require('./temp-update/package.json')
+		const newPkg = require('../temp-update/package.json')
 		let newDep = {}
 		let newDevDep = {}
 		for(let i in newPkg.dependencies){
