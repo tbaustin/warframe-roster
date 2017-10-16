@@ -1,8 +1,8 @@
 'use strict'
 const fs = require('fs-extra')
 const Sitemap = require('sitemap')
-const pkg = require('../package.json')
-const router = require('../next.config').exportPathMap(true)
+const pkg = require('../../package.json')
+const router = require('../../next.config').exportPathMap(true)
 
 // Build sitemap from router
 if (process.env && process.env.URL) {

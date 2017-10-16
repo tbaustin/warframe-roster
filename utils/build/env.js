@@ -1,7 +1,7 @@
 'use strict'
 require('dotenv').config({ silent: true })
 const fs = require('fs-extra')
-const expose = require('../config/expose-env')
+const expose = require('../../config/expose-env')
 
 // Get env variables
 let clientObj = {}
