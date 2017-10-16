@@ -6,14 +6,11 @@ import env from 'json/env.json'
 
 export default class MyDocument extends Document {
 	static getInitialProps({ renderPage }) {
-		console.log('Get initial props doc...')
 		const { html, head, errorHtml, chunks } = renderPage()
 		const styles = flush()
 		return { html, head, errorHtml, chunks, styles }
 	}
-
 	render() {
-		console.log('Rendering doc...')
 		return (
 			<html>
 				<Head>

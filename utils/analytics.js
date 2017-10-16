@@ -3,11 +3,10 @@ import env from 'json/env.json'
 import { routerAdd } from 'utils/router-events'
 
 export const initGA = () => {
-
 	if (!window.GA_INITIALIZED) {
 		console.log('Google Analytics init')
-		window.GA_INITIALIZED = true
 		if (env.GOOGLE_ANALYTICS_ID) {
+			window.GA_INITIALIZED = true
 			ReactGA.initialize(env.GOOGLE_ANALYTICS_ID)
 			logPageView()
 			routerAdd('onRouteChangeComplete', logPageView)
