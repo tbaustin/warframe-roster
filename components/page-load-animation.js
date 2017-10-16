@@ -1,31 +1,50 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import { routerAdd, routerRemove } from 'utils/router-events'
 import settings from 'components/_settings'
 
-const anim = keyframes`
-	from{
-		transform: translate(-100%, 0);
-	}
-	to{
-		transform: translate(0%, 0);
-	}
-`
-const Bar = styled.div`
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	background-color: #000;
-	transform: translate(-100%, 0);
-	animation: ${anim} 3s linear infinite;
-`
-
 export default class extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = { loading: false }
+		this.showLoader = this.showLoader.bind(this)
+		this.routerStart = this.routerStart.bind(this)
+		this.routerDone = this.routerDone.bind(this)
+		this.clearTimeouts = this.clearTimeouts.bind(this)
+	}
+	componentWillMount() {
+		console.log('Page load animation mounting...')
+		// Progress bar
+		this.clearTimeouts()
+		routerAdd('onRouteChangeStart', this.routerStart)
+	}
+	componentDidMount() {
+		this.clearTimeouts()
+	}
+	componentWillUnmount() {
+		this.clearTimeouts()
+		routerRemove('onRouteChangeStart', this.routerStart)
+	}
+	clearTimeouts() {
+		clearTimeout(this.uiTimeout)
+	}
+	showLoader() {
+		console.log('Showing loader...')
+		clearTimeout(this.uiTimeout)
+		this.setState({ loading: true })
+	}
+	routerStart(url) {
+		this.clearTimeouts()
+		this.uiTimeout = setTimeout(this.showLoader.bind(this), 100)
+	}
+	routerDone() {
+		console.log('Load animation router done.')
+		this.clearTimeouts()
+		this.setState({ loading: false })
+	}
 	render(){
 		return (
-			<div className={this.props.loading && 'loading'} style={{zIndex: 100}}>
-				{this.props.loading && <Bar />}
+			<div className={this.state.loading && 'loading'} style={{zIndex: 100}}>
+				<span />
 				<style jsx>{`
 					div{
 						box-sizing: border-box;
@@ -40,6 +59,24 @@ export default class extends React.Component {
 					}
 					.loading{
 						display: block;
+					}
+					span{
+						position: absolute;
+						top: 0;
+						left: 0;
+						bottom: 0;
+						width: 100%;
+						background-color: #000;
+						transform: translate(-100%, 0);
+						animation: anim 3s linear infinite;
+					}
+					@keyframes anim{
+						from{
+							transform: translate(-100%, 0);
+						}
+						to{
+							transform: translate(0%, 0);
+						}
 					}
 				`}</style>
 			</div>

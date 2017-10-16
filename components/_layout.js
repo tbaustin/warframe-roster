@@ -1,11 +1,10 @@
 import React from 'react'
-import Router from 'next/router'
+import { routerAdd, routerRemove } from 'utils/router-events'
 import { initGA, logPageView } from 'utils/analytics'
 import style from 'components/_global-styles.css'
 import fastclick from 'react-fastclick'
-import Loader from 'components/page-load-animation'
+import PageLoadBar from 'components/page-load-animation'
 import Head from 'next/head'
-import detectIe from 'detectie'
 import env from 'json/env.json'
 import createTitle from 'utils/create-page-title'
 import createDescription from 'utils/create-page-description'
@@ -18,7 +17,7 @@ export default class Layout extends React.Component {
 		this.state = {
 			loading: false
 		}
-		this.showLoader = this.showLoader.bind(this)
+		this.routerStart = this.routerStart.bind(this)
 		this.routerDone = this.routerDone.bind(this)
 		this.routerError = this.routerError.bind(this)
 		this.clearTimeouts = this.clearTimeouts.bind(this)
@@ -26,19 +25,11 @@ export default class Layout extends React.Component {
 	componentWillMount() {
 		// Progress bar
 		this.clearTimeouts()
-		Router.onRouteChangeStart = url => {
-			if (this.ie) return document.location = url
-			this.clearTimeouts()
-			this.uiTimeout = setTimeout(this.showLoader.bind(this), 100)
-			//this.loadTimeout = setTimeout(() => this.routerError(url), 5000)
-		}
-		Router.onRouteChangeComplete = this.routerDone
-		Router.onRouteChangeError = (err, url) => this.routerError(url)
+		routerAdd('onRouteChangeStart', this.routerStart)
+		routerAdd('onRouteChangeComplete', this.routerDone)
+		routerAdd('onRouteChangeError', this.routerError)
 	}
 	componentDidMount() {
-		let ie = detectIe()
-		this.ie = (typeof ie === 'number' && ie <= 11) ? true : false
-
 		// Google Analytics
 		if (!window.GA_INITIALIZED) {
 			initGA()
@@ -58,27 +49,26 @@ export default class Layout extends React.Component {
 				}
 			}
 		}
-
-		// Progress bar
-		this.clearTimeouts()
 	}
 	componentWillUnmount() {
 		this.clearTimeouts()
+		routerRemove('onRouteChangeStart', this.routerStart)
+		routerRemove('onRouteChangeComplete', this.routerDone)
+		routerRemove('onRouteChangeError', this.routerError)
+	}
+	routerStart(url) {
+		this.clearTimeouts()
+		this.loadTimeout = setTimeout(() => this.routerError(null, url), 5000)
 	}
 	clearTimeouts() {
-		clearTimeout(this.uiTimeout)
-		//clearTimeout(this.loadTimeout)
+		clearTimeout(this.loadTimeout)
 	}
-	routerError(url) {
+	routerError(err, url) {
 		document.location = url || '/404'
 	}
-	showLoader() {
-		clearTimeout(this.uiTimeout)
-		this.setState({ loading: true })
-	}
 	routerDone() {
+		console.log('Layout router done.')
 		this.clearTimeouts()
-		this.setState({ loading: false })
 		logPageView()
 	}
 	render() {
@@ -98,7 +88,7 @@ export default class Layout extends React.Component {
 					}
 				</Head>
 				{this.props.children}
-				<Loader loading={this.state.loading} />
+				<PageLoadBar loading={this.state.loading} />
 				{env.ENABLE_ECOMMERCE &&
 					<script src='https://zygote.netlify.com/zygote-v1.js' />
 				}

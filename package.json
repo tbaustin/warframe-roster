@@ -46,7 +46,6 @@
 		"css-mqpacker": "^6.0.1",
 		"cssnano": "^3.10.0",
 		"datasets-us-states-names": "^1.0.0",
-		"detectie": "^1.0.0",
 		"dotenv": "^4.0.0",
 		"express": "^4.15.3",
 		"form-serialize": "^0.7.2",
@@ -83,7 +82,7 @@
 		"reviews-to-json": "escaladesports/reviews-to-json.git#1.2.0",
 		"sharp": "^0.18.2",
 		"sitemap": "^1.13.0",
-		"styled-components": "^2.1.2",
+		"styled-components": "^2.2.1",
 		"styled-jsx-plugin-postcss": "^0.1.0",
 		"styled-jsx-postcss": "^0.2.0",
 		"terms-of-service": "escaladesports/terms-of-service#v1.0.4"
