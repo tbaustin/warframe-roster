@@ -1,13 +1,14 @@
 import React from 'react'
 import { initGA } from 'utils/analytics'
 import fastclick from 'react-fastclick'
-import PageLoadBar from 'components/page-load-animation'
 import Head from 'next/head'
 import createTitle from 'utils/create-page-title'
 import createDescription from 'utils/create-page-description'
 import clientTimeoutError from 'utils/client-timeout-error'
 import zygoteRefresh from 'utils/zygote-refresh'
 import NoSSR from 'react-no-ssr'
+import PageLoadBar from 'components/page-load-animation'
+
 
 fastclick()
 

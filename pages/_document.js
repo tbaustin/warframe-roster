@@ -3,6 +3,7 @@ import flush from 'styled-jsx/server'
 import Layout from 'components/_layout'
 import style from 'components/_global-styles.css'
 import env from 'json/env.json'
+import Zygote from 'components/zygote'
 
 export default class MyDocument extends Document {
 	static getInitialProps({ renderPage }) {
@@ -18,15 +19,12 @@ export default class MyDocument extends Document {
 					<meta name='viewport' content='initial-scale=1.0, width=device-width' />
 					<link rel='icon' type='image/png' href='/static/img/w_32/favicon.png' />
 					<style>{style}</style>
-					{env.ENABLE_ECOMMERCE &&
-						<link type='text/css' rel='stylesheet' href='https://zygote.netlify.com/zygote-v1.css' />
-					}
 				</Head>
 				<body>
 					<Main />
 					<NextScript />
 					{env.ENABLE_ECOMMERCE &&
-						<script src='https://zygote.netlify.com/zygote-v1.js' />
+						<Zygote />
 					}
 				</body>
 			</html>
