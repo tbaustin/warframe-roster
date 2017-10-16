@@ -61,7 +61,7 @@ export default class extends React.Component{
 	}
 	render(){
 		return (
-			<form name='contact' data-netlify='true' onSubmit={this.handleSubmit} action='/contact-submit' className={this.state.className}>
+			<form name='contact' data-netlify='true' onSubmit={this.handleSubmit} action='thank-you' className={this.state.className}>
 				{ this.state.results }
 				<div>
 					<Input label='Your Name:' name='name' required />
