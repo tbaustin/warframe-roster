@@ -97,6 +97,7 @@ export default class extends React.Component {
 		return (
 			<div>
 				<form
+					method='post'
 					name={ this.props.name }
 					action={ action }
 					target={this.props.google && 'hidden_iframe' }
@@ -104,8 +105,10 @@ export default class extends React.Component {
 					className={ this.state.className }
 					onSubmit={ this.props.onSubmit }
 					data-netlify-honeypot={this.props.netlify && 'bf'}
-					method='post'
 					>
+					{this.props.netlify &&
+						<input type='hidden' name='form-name' value={this.props.name} />
+					}
 					{ this.state.results }
 					<div className='formContents'>
 						{this.props.netlify &&
