@@ -6,7 +6,7 @@
 
 ## Credentials/API Keys
 
-Credentials are stored in a .env file (not included in repository). Common environment variables you may need are in `./.ev-sample`.
+Credentials are stored in a .env file (not included in repository). Common environment variables you may need are in `./.env-sample`.
 
 You can expose environment variables to the client side by adding them to the `./config/expose-env.js` file. This will create a `./json/env.json` file containing the exposed variables any time `yarn prebuild` is run.
 

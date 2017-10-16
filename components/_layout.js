@@ -93,7 +93,6 @@ export default class Layout extends React.Component {
 
 					<style>{style}</style>
 					<link rel='icon' type='image/png' href='/static/img/w_32/favicon.png' />
-					<link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" />
 					{env.ENABLE_ECOMMERCE &&
 						<link type='text/css' rel='stylesheet' href='https://zygote.netlify.com/zygote-v1.css' />
 					}

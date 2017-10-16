@@ -1,6 +1,6 @@
 import React from 'react';
 import DealerLocatorForm from 'components/dealer-locator/dealer-locator-form';
-import DealerMap from 'components/embed/map/dealer-map';
+import DealerMap from 'components/dealer-locator/map/dealer-map';
 
 export default class extends React.Component {
 	constructor(props) {

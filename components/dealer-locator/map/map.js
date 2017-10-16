@@ -1,6 +1,6 @@
 import React from 'react';
 import GoogleMapReact from 'google-map-react';
-import Marker from 'components/embed/map/marker'
+import Marker from 'components/dealer-locator/map/marker'
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 

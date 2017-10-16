@@ -1,7 +1,7 @@
 import React from 'react'
 import fetch from 'isomorphic-fetch'
 import settings from 'components/_settings'
-import Map from 'components/embed/map/map'
+import Map from 'components/dealer-locator/map/map'
 import DealerList from 'components/dealer-locator/dealer-list'
 
 /* Setup marker objects to pass to a generic Map component */
@@ -170,7 +170,7 @@ export default class extends React.Component {
 					.dealerMap {
 						border: 4px solid ${settings.navy};
 					}
-					
+
 					.dealerMap__map, .dealerMap__list {
 						display: inline-block;
 						vertical-align: top;
