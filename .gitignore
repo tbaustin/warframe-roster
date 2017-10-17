@@ -11,7 +11,6 @@ node_modules/
 
 # Development/Environment
 .env
-out
 dist
 .next
 json
@@ -19,5 +18,4 @@ static
 
 # Temporary
 temp
-tmp
 temp-*
