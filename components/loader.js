@@ -1,5 +1,4 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
 import settings from 'components/_settings'
 
 export default class extends React.Component {

@@ -74,9 +74,8 @@ function saveJson(obj){
 	return Promise.all(promises)
 }
 
-getJsonPaths(dirs)
+module.exports = () => getJsonPaths(dirs)
 	.then(getData)
 	.then(mergeData)
 	.then(saveJson)
 	.then(() => console.log('Product JSON merged!'))
-	.catch(err => { throw err })

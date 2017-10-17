@@ -7,6 +7,9 @@ const promises = [
 	cpy([ 'uploads/**/*' ], 'dist/uploads')
 ]
 
-Promise.all(promises)
-	.then(() => console.log('Files copied.'))
-	.catch(console.error)
+module.exports = () => {
+	console.log('Copying files...')
+	return Promise.all(promises)
+		.then(() => console.log('Files copied.'))
+}
+
