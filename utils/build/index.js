@@ -1,28 +1,13 @@
 'use strict'
 require('dotenv').config({ silent: true })
-const clean = require('./clean')
-const markdown = require('../markdown/markdown')
-const markdownModules = require('../markdown/markdown-modules')
-const salsify = require('../salsify/salsify')
-const mergeProduct = require('../product/merge-product-data')
-const allJson = require('./all-json')
-const env = require('./env')
+const sync = require('./sync')
 const exec = require('child-process-promise').exec
 const sitemap = require('./sitemap')
 const copy = require('./copy')
 const replaceImages = require('../images/replace-images')
 
-// Prebuild
-clean()
-	.then(() => Promise.all([
-		markdown(),
-		markdownModules('privacy-policy'),
-		markdownModules('terms-of-service'),
-		salsify(),
-		env()
-	]))
-	.then(() => mergeProduct())
-	.then(() => allJson())
+// Sync data from APIs & new files
+sync()
 
 	// Build
 	.then(() => {

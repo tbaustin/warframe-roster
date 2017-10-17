@@ -11,6 +11,7 @@
 		"edit": "node utils/markdown/markdown-edit",
 		"salsify-check": "npm run salsify && node utils/salsify/salsify-check",
 		"serve-static": "node utils/dev/serve-static",
+		"sync": "node node -e \"require('./utils/build/sync')()\"",
 		"dev": "node utils/dev/server",
 		"update": "node utils/dev/update"
 	},

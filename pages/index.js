@@ -8,7 +8,6 @@ export default class extends React.Component {
 	render(){
 		return(
 			<Layout>
-				<Loader />
 				<div>
 					<Link href='/product?id=as825r10' as='/product/as825r10' prefetch>
 						<a>Product</a>
