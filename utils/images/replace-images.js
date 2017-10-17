@@ -8,47 +8,55 @@ let contents
 let regLinks = /\/static\/(.*?)('|"|\)| )/gi
 let regRemove = /('|"|\)| )/g
 
-glob([
-		'dist/**/*.js',
-		'dist/**/*.css',
-		'dist/**/*.html'
-	])
+module.exports = () => {
+	console.log('Transforming found images...')
+	return glob([
+			'dist/**/*.js',
+			'dist/**/*.css',
+			'dist/**/*.html'
+		])
 
-	// Get file data
-	.then(res => {
-		paths = res
-		return Promise.all(paths.map(path => fs.readFile(path, 'utf-8')))
-	})
-
-	// Extract image URLs
-	.then(res => {
-		contents = res
-		let found = []
-		contents.forEach(str => {
-			let matches = str.match(regLinks) || []
-			matches = matches.forEach(match => {
-				match = match.replace(regRemove, '')
-				if(found.indexOf(match) === -1){
-					found.push(match)
-				}
-			})
+		// Get file data
+		.then(res => {
+			console.log('Reading files for image paths...')
+			paths = res
+			return Promise.all(paths.map(path => fs.readFile(path, 'utf-8')))
 		})
-		return found
-	})
 
-	// Image operations
-	.then(paths => {
-		let dir = __dirname.split('/')
-		dir.pop()
-		dir = dir.join('/')
-		let promises = paths.map(path => {
-			return transform(path, {
-				cwd: dir,
-				dist: true
+		// Extract image URLs
+		.then(res => {
+			console.log('Extracting image paths...')
+			contents = res
+			let found = []
+			contents.forEach(str => {
+				let matches = str.match(regLinks) || []
+				matches = matches.forEach(match => {
+					match = match.replace(regRemove, '')
+					if (found.indexOf(match) === -1) {
+						found.push(match)
+					}
+				})
 			})
+			return found
 		})
-		return Promise.all(promises)
-	})
 
-	.then(console.log)
-	.catch(err => {throw err})
+		// Image operations
+		.then(paths => {
+			console.log('Performing image operations...')
+			let dir = __dirname.split('/')
+			dir.pop()
+			dir.pop()
+			dir = dir.join('/')
+			console.log(`Reading images from ${dir}`)
+			let promises = paths.map(path => {
+				console.log(`Transforming ${path}`)
+				return transform(path, {
+					cwd: dir,
+					dist: true
+				})
+			})
+			return Promise.all(promises)
+		})
+
+		.then(() => console.log('Done transforming images.'))
+}

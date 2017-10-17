@@ -61,6 +61,7 @@ module.exports = (src, options) => {
 					}
 					// Else just copy it to static
 					else{
+						console.log('Copying file', fullDest)
 						fs.copy(srcPath, fullDest)
 							.then(() => resolve(src))
 							.catch(reject)

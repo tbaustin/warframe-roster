@@ -10,24 +10,33 @@ const env = require('./env')
 const exec = require('child-process-promise').exec
 const sitemap = require('./sitemap')
 const copy = require('./copy')
+const replaceImages = require('../images/replace-images')
 
-
-// Prepare for build
+// Prebuild
 clean()
 	.then(() => Promise.all([
 		markdown(),
 		markdownModules('privacy-policy'),
 		markdownModules('terms-of-service'),
-		salsify()
-	]))
-	.then(() => mergeProduct())
-	.then(() => Promise.all([
-		allJson(),
+		salsify(),
 		env()
 	]))
-	.then(() => exec('next build'))
-	.then(() => exec('next export -o dist'))
+	.then(() => mergeProduct())
+	.then(() => allJson())
+
+	// Build
+	.then(() => {
+		console.log('Building Next.js app...')
+		return exec('next build')
+	})
+	.then(() => {
+		console.log('Exporting Next.js static files...')
+		return exec('next export -o dist')
+	})
+
+	// Post build
 	.then(() => Promise.all([
+		replaceImages(),
 		sitemap(),
 		copy(),
 		exec('html-minifier --input-dir ./dist --output-dir ./dist --file-ext html --config-file ./config/.htmlmin')
