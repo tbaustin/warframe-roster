@@ -39,7 +39,7 @@ export default class extends React.Component {
 	render() {
 		return (
 			<div>
-				{this.state.stock[this.props.id] &&
+				{this.state.stock[this.props.id] > 0 &&
 					<button
 						className={this.state.stock === false && 'loading'}
 						style={this.props.style || {}}
