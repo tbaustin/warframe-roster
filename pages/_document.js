@@ -36,6 +36,7 @@ export default class MyDocument extends Document {
 				</Head>
 				<body>
 					<Main />
+					<script src='https://cdn.polyfill.io/v2/polyfill.js' />
 					<NextScript />
 					<Zygote />
 				</body>

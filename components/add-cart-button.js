@@ -74,8 +74,6 @@ export default class extends React.Component {
 						padding: 0.7rem 2rem;
 						font-size: 1.7rem;
 						text-transform: uppercase;
-						font-family: 'Oswald';
-						background: ${settings.navy};
 						color: #fff;
 						cursor: pointer;
 					}

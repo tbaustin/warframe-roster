@@ -19,7 +19,9 @@ export default class extends React.Component {
 					<img src={cloudinary(this.props.images[0], 'w_200')} />
 				}
 				<AddToCart
+					name={this.props.title}
 					id={this.props.id}
+					price='1.99'
 					/>
 			</Layout>
 		)
