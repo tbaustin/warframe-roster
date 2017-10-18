@@ -19,7 +19,6 @@ export default class MyDocument extends Document {
 					<style>{`
 						html, body{
 							-webkit-tap-highlight-color: rgba(0,0,0,0);
-							display: none;
 						}
 						html{
 							box-sizing: border-box;
