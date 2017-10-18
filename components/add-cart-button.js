@@ -42,6 +42,9 @@ export default class extends React.Component {
 		this.setState({ stock: stock })
 		zygoteRefresh()
 	}
+	componentDidUpdate() {
+		zygoteRefresh()
+	}
 	render() {
 		return (
 			<div>
