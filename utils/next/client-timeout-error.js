@@ -1,14 +1,16 @@
 import { routerAdd } from 'utils/next/router-events'
+import env from 'json/env'
 
 let loadTimeout
 
 export default function () {
 	if(!window.routerTimeoutInit){
-		console.log('Initiating router timeouts.')
 		window.routerTimeoutInit = true
-		routerAdd('onRouteChangeStart', routerStart)
-		routerAdd('onRouteChangeComplete', clearLoadTimeout)
-		routerAdd('onRouteChangeError', routerError)
+		if (env.NODE_ENV !== 'production') {
+			routerAdd('onRouteChangeStart', routerStart)
+			routerAdd('onRouteChangeComplete', clearLoadTimeout)
+			routerAdd('onRouteChangeError', routerError)
+		}
 	}
 }
 

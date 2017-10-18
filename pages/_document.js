@@ -15,7 +15,6 @@ export default class MyDocument extends Document {
 				<Head>
 					<meta charSet='utf-8' />
 					<meta name='viewport' content='initial-scale=1.0, width=device-width' />
-					<link rel='icon' type='image/png' href='/static/img/w_32/favicon.png' />
 					<style>{`
 						html, body{
 							-webkit-tap-highlight-color: rgba(0,0,0,0);
