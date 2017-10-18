@@ -16,16 +16,17 @@ export default class MyDocument extends Document {
 					<meta charSet='utf-8' />
 					<meta name='viewport' content='initial-scale=1.0, width=device-width' />
 					<link rel='icon' type='image/png' href='/static/img/w_32/favicon.png' />
-					<style jsx global>{`
+					<style>{`
 						html, body{
 							-webkit-tap-highlight-color: rgba(0,0,0,0);
+							display: none;
 						}
 						html{
 							box-sizing: border-box;
 						}
 						body{
 							margin: 0;
-							font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+							font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 							text-rendering: optimizeLegibility;
 							-webkit-font-smoothing: antialiased;
 						}
