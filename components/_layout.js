@@ -19,7 +19,6 @@ export default class Layout extends React.Component {
 	componentDidMount() {
 		initGA()
 		clientTimeoutError()
-		zygoteRefresh()
 		initStock()
 	}
 	render() {
