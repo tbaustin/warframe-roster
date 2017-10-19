@@ -4,9 +4,7 @@ import fetch from 'isomorphic-fetch'
 import fetchStock from 'utils/product/get-stock'
 import env from 'json/env.json'
 import zygoteRefresh from 'utils/next/zygote-refresh'
-
-// How often real time stock updates, min/sec/mili
-const updateStockInterval = 20 * 60 * 1000
+import { addStockEvent, removeStockEvent } from 'utils/product/set-stock'
 
 export default class extends React.Component {
 	constructor(props) {
@@ -14,29 +12,16 @@ export default class extends React.Component {
 		this.state = {
 			stock: false
 		}
-		this.updateStock = this.updateStock.bind(this)
 		this.setStock = this.setStock.bind(this)
 	}
-	updateStock() {
-		if (env.ENABLE_ECOMMERCE) {
-			fetchStock()
-				.then(stock => {
-					window.productStock = stock
-					this.setStock(stock)
-				})
-				.catch(err => { throw err })
-		}
-	}
 	componentDidMount() {
-		if (env.ENABLE_ECOMMERCE) {
-			if (!window.productStock) {
-				this.updateStock()
-				setInterval(this.updateStock, updateStockInterval)
-			}
-			else if (typeof window.productStock === 'object') {
-				this.setStock(window.productStock)
-			}
+		if (window.productStock){
+			this.setStock(window.productStock)
 		}
+		addStockEvent(this.setStock)
+	}
+	componentWillUnmount(){
+		removeStockEvent(this.setStock)
 	}
 	setStock(stock) {
 		this.setState({ stock: stock })
