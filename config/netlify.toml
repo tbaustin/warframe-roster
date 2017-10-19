@@ -1,3 +1,3 @@
 headers = [
-  {for = "/*", values = {server = ""}}
+  {for = "/*", values = {server = "Test"}}
 ]
