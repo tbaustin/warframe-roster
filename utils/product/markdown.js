@@ -2,17 +2,17 @@
 const matter = require('gray-matter')
 const fs = require('fs-extra')
 const glob = require('globby')
-const equal = require('deep-equal')
 
 module.exports = () => {
-
+	console.log('Reading product markdown files...')
 	// Read files
-	glob('./markdown/product/**/*.md')
+	return glob('./markdown/product/**/*.md')
 		.then(paths => {
 			return Promise.all(paths.map(path => fs.readFile(path)))
 		})
 		// Create objects
 		.then(contents => {
+			console.log('Creating markdown product objects...')
 			contents = contents.map(prod => {
 				prod = prod.toString()
 				prod = matter(prod)
@@ -59,6 +59,7 @@ module.exports = () => {
 
 		// Save JSON files
 		.then(obj => {
+			console.log('Saving markdown product JSON files...')
 			const promises = []
 			for(let i in obj){
 				promises.push(fs.outputJson(`./json/markdown/product/${i}.json`, obj[i], { spaces: '\t' }))
@@ -66,7 +67,6 @@ module.exports = () => {
 			return Promise.all(promises)
 		})
 
-		//.then(obj => console.log(JSON.stringify(obj, null, 3)))
-		.catch(console.error)
+		.then(obj => console.log('Done saving product markdown JSON.'))
 
 }

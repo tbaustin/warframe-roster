@@ -16,8 +16,8 @@ module.exports = () => clean()
 		productMarkdown(),
 		markdownModules('privacy-policy'),
 		markdownModules('terms-of-service'),
-		salsify(),
 		env()
 	]))
-	.then(() => mergeProduct())
-	.then(() => allJson())
+	.then(salsify)
+	.then(mergeProduct)
+	.then(allJson)
