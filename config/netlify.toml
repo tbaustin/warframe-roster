@@ -1,3 +1,4 @@
-headers = [
-  {for = "/*", values = {server = "Test"}}
+redirects = [
+	{from = '/admin', to = '/admin/'},
+	{from = '/*', to = '/404/index.html', status = 404}
 ]
