@@ -12,7 +12,7 @@ const env = require('./env')
 // Sync data
 module.exports = () => clean()
 	.then(() => Promise.all([
-		//markdown(),
+		markdown(),
 		productMarkdown(),
 		markdownModules('privacy-policy'),
 		markdownModules('terms-of-service'),
