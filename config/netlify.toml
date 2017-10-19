@@ -1,0 +1,2 @@
+headers = [
+  {for = "/*", values = {X-Custom-Header = "foo", X-Other-Header = "bar"}]
