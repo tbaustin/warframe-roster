@@ -1,7 +1,6 @@
 import React from 'react'
 import settings from 'components/_settings'
 import fetch from 'isomorphic-fetch'
-import fetchStock from 'utils/product/get-stock'
 import env from 'json/env.json'
 import zygoteRefresh from 'utils/next/zygote-refresh'
 import { addStockEvent, removeStockEvent } from 'utils/product/set-stock'
