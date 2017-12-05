@@ -1,6 +1,0 @@
-redirects = [
-	# Fix Netlify CMS link
-	{from = '/admin', to = '/admin/'},
-	# Custom 404 page routing
-	{from = '/*', to = '/404/index.html', status = 404}
-]
