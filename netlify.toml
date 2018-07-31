@@ -1,0 +1,11 @@
+[Settings]
+	ID = "gatsby-boilerplate"
+
+[build]
+	command = "yarn build"
+	publish = "public"
+
+[[redirects]]
+	from = "/*"
+	to = "/404"
+	status = 404
