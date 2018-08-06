@@ -5,3 +5,7 @@
 	command = "yarn build"
 	publish = "public"
 	functions = "dist-functions"
+
+[[redirects]]
+	from = "/admin"
+	to = "/admin/"
