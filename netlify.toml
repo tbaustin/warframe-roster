@@ -1,5 +1,5 @@
 [Settings]
-	ID = "gatsby-boilerplate"
+	ID = "project-boilerplate"
 
 [build]
 	command = "yarn build"
