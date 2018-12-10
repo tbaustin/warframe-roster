@@ -2,10 +2,15 @@
 	ID = "project-boilerplate"
 
 [build]
-	command = "yarn build:gatsby"
+	command = "yarn build"
 	publish = "public"
 	functions = "dist-functions"
 
 [[redirects]]
 	from = "/admin"
 	to = "/admin/"
+
+[[redirects]]
+	from = "/*"
+	to = "/404"
+	status = 404
