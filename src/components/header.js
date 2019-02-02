@@ -1,56 +1,61 @@
-import React from 'react'
-import Link from 'gatsby-link'
-import { css } from '@emotion/core'
-import Close from '@material-ui/icons/Close'
-import { primaryColor } from '../styles/colors'
+import React from "react"
+import Link from "gatsby-link"
+import { css } from "@emotion/core"
+import Close from "@material-ui/icons/Close"
+import { StaticQuery, graphql } from "gatsby"
 
-export default class Header extends React.Component{
-	constructor(props){
+import { primaryColor } from "../styles/colors"
+
+class Header extends React.Component {
+	constructor(props) {
 		super(props)
 		this.state = {
 			open: false,
 		}
 		this.toggle = this.toggle.bind(this)
 	}
-	toggle(){
+	toggle() {
 		this.setState({ open: !this.state.open })
 	}
-	render(){
+	render() {
 		const { open } = this.state
+		const { categoryMarkdown } = this.props.data
+		const categories = categoryMarkdown.edges.map(
+			({ node: { frontmatter } }) => frontmatter
+		)
 		return (
 			<header css={styles.header}>
-				<button
-					type='button'
-					onClick={this.toggle}
-					css={styles.menuButton}
-				>
+				<button type="button" onClick={this.toggle} css={styles.menuButton}>
 					menu
 				</button>
-				<nav
-					css={[
-						styles.nav,
-						open && styles.navOpen,
-					]}
-					onClick={this.toggle}
-				>
+				<nav css={[styles.nav, open && styles.navOpen]} onClick={this.toggle}>
 					<Close css={styles.close} />
 					<ul>
-						<li><Link to='/'>Home</Link></li>
-						<li><Link to='/blog'>Blog</Link></li>
-						<li><Link to='/about'>About</Link></li>
-						<li><Link to='/grid'>Grid</Link></li>
-						<li><Link to='/pickleball'>Category</Link></li>
-						<li><Link to='/search'>Search</Link></li>
-						<li><Link to='/contact'>Contact</Link></li>
+						{categories.map((cat, i) => (
+							<li key={i}>
+								<Link to={`/${cat.id}`}>{cat.title}</Link>
+							</li>
+						))}
 					</ul>
 				</nav>
-				{this.state.open && (
-					<style>{`body{overflow:hidden}`}</style>
-				)}
+				{this.state.open && <style>{`body{overflow:hidden}`}</style>}
 			</header>
 		)
 	}
 }
+
+const queryWrapper = props => (
+	<StaticQuery
+		query={graphql`
+			query {
+				...categoryFragment
+			}
+		`}
+		render={data => <Header data={data} {...props} />}
+	/>
+)
+
+export default props => queryWrapper(props)
 
 const breakpoint = 800
 
@@ -65,15 +70,16 @@ const styles = {
 		border: none;
 		cursor: pointer;
 		font-size: 1em;
-		:hover, :active{
+		:hover,
+		:active {
 			text-decoration: underline;
 		}
-		@media(min-width: ${breakpoint}px){
+		@media (min-width: ${breakpoint}px) {
 			display: none;
 		}
 	`,
 	nav: css`
-		background-color: rgba(0, 0, 0, .8);
+		background-color: rgba(0, 0, 0, 0.8);
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -94,17 +100,17 @@ const styles = {
 			padding: 0 10px;
 			color: #fff;
 		}
-		@media(min-width: ${breakpoint}px){
+		@media (min-width: ${breakpoint}px) {
 			position: relative;
 			background-color: transparent;
 			display: block;
 			text-align: left;
 			overflow: hidden;
 			z-index: 1;
-			li{
+			li {
 				display: inline-block;
 			}
-			a{
+			a {
 				color: ${primaryColor};
 			}
 		}
@@ -120,7 +126,7 @@ const styles = {
 		cursor: pointer;
 		width: 34px;
 		height: 34px;
-		@media(min-width: ${breakpoint}px){
+		@media (min-width: ${breakpoint}px) {
 			display: none;
 		}
 	`,

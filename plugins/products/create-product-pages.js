@@ -2,31 +2,26 @@ const { resolve } = require(`path`)
 
 const component = resolve(`src/templates/product.js`)
 
-module.exports = async function createProductPages(createPage, graphql){
-	const result = await graphql(`{
-		allMarkdownRemark(
-			filter: {
-				fileAbsolutePath: {
-					regex: "/src/markdown/products/"
-				}
-				frontmatter: {
-					published: { eq: true }
-				}
-			}
-		){
-			edges {
-				node {
-					frontmatter{
-						id
-						category
-					}
-					fields{
-						path
+module.exports = async function createProductPages(createPage, graphql) {
+	const result = await graphql(`
+		{
+			allMarkdownRemark(
+				filter: { fileAbsolutePath: { regex: "/src/markdown/products/" } }
+			) {
+				edges {
+					node {
+						frontmatter {
+							id
+							category
+						}
+						fields {
+							path
+						}
 					}
 				}
 			}
 		}
-	}`)
+	`)
 
 	if (result.errors) {
 		console.error(result.errors)

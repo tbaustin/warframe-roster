@@ -1,15 +1,9 @@
-
 const striptags = require(`striptags`)
 const proxy = require(`http-proxy-middleware`)
 const { readFileSync } = require(`fs-extra`)
 const globby = require(`globby`).sync
 const matter = require(`gray-matter`)
-const { siteUrl, siteId } = require(`./site-config`)
-const {
-	SALSIFY_API_KEY,
-	SALSIFY_ORG,
-} = require(`./env`)
-
+const { siteUrl } = require(`./site-config`)
 
 // Get site info from markdown
 const { siteTitle, siteDescription } = matter(
@@ -49,32 +43,6 @@ module.exports = {
 		`gatsby-plugin-sharp`,
 		`gatsby-transformer-sharp`,
 		`gatsby-plugin-remove-trailing-slashes`,
-		{
-			resolve: `escalade-stock`,
-			options: {
-				ids: productIds,
-				siteId,
-			},
-		},
-		{
-			resolve: `escalade-pricing`,
-			options: {
-				ids: productIds,
-				siteId,
-			},
-		},
-		{
-			resolve: `source-salsify`,
-			options: {
-				ids: productIds,
-				apiKey: SALSIFY_API_KEY,
-				org: SALSIFY_ORG,
-				cacheWebImages: false,
-				media: [
-					`webImages`,
-				],
-			},
-		},
 		`blog`,
 		`generic-pages`,
 		`products`,
@@ -93,10 +61,12 @@ module.exports = {
 		{
 			resolve: `gatsby-plugin-robots-txt`,
 			options: {
-				policy: [{
-					userAgent: `*`,
-					disallow: [`/email-templates`],
-				}],
+				policy: [
+					{
+						userAgent: `*`,
+						disallow: [`/email-templates`],
+					},
+				],
 			},
 		},
 		`gatsby-plugin-netlify`,
@@ -105,6 +75,13 @@ module.exports = {
 			options: {
 				path: `${__dirname}/src/markdown`,
 				name: `pages`,
+			},
+		},
+		{
+			resolve: `gatsby-source-filesystem`,
+			options: {
+				path: `${__dirname}/static/uploads`,
+				name: `uploads`,
 			},
 		},
 		{
@@ -119,16 +96,16 @@ module.exports = {
 							target: `_blank`,
 						},
 					},
-					// {
-					// 	resolve: `gatsby-remark-images`,
-					// 	options: {
-					// 		maxWidth: 1200,
-					// 		linkImagesToOriginal: false,
-					// 		withWebp: {
-					// 			quality: 95,
-					// 		},
-					// 	},
-					// },
+					{
+						resolve: `gatsby-remark-images`,
+						options: {
+							maxWidth: 1200,
+							linkImagesToOriginal: false,
+							withWebp: {
+								quality: 95,
+							},
+						},
+					},
 				],
 			},
 		},
@@ -198,11 +175,11 @@ module.exports = {
 				fonts: [
 					{
 						family: `Oswald`,
-						subsets: [ `latin` ],
+						subsets: [`latin`],
 					},
 					{
 						family: `Open Sans`,
-						subsets: [ `latin` ],
+						subsets: [`latin`],
 					},
 				],
 			},
@@ -253,31 +230,27 @@ module.exports = {
 						serialize: ({
 							query: {
 								site: {
-									siteMetadata: {
-										siteUrl,
-									},
+									siteMetadata: { siteUrl },
 								},
-								allMarkdownRemark: {
-									edges,
-								},
+								allMarkdownRemark: { edges },
 							},
 						}) => {
-							return edges.map(({
-								node: {
-									html,
-									frontmatter,
-									fields: {
-										path,
+							return edges.map(
+								({
+									node: {
+										html,
+										frontmatter,
+										fields: { path },
 									},
-								},
-							}) => {
-								return {
-									...frontmatter,
-									url: `${siteUrl}${path}`,
-									guid: `${siteUrl}${path}`,
-									custom_elements: [{ 'content:encoded': html }],
+								}) => {
+									return {
+										...frontmatter,
+										url: `${siteUrl}${path}`,
+										guid: `${siteUrl}${path}`,
+										custom_elements: [{ "content:encoded": html }],
+									}
 								}
-							})
+							)
 						},
 						output: `/rss.xml`,
 					},
@@ -318,32 +291,30 @@ module.exports = {
 						}
 						return false
 					})
-					return data.map(({
-						node: {
-							id,
-							html,
-							excerpt,
-							frontmatter: {
-								title,
-							},
-							fields: {
-								path,
-							},
-						},
-					}) => {
-						return {
-							id,
-							index: {
-								body: striptags(html),
-								title,
-							},
-							store: {
-								title,
+					return data.map(
+						({
+							node: {
+								id,
+								html,
 								excerpt,
-								path,
+								frontmatter: { title },
+								fields: { path },
 							},
+						}) => {
+							return {
+								id,
+								index: {
+									body: striptags(html),
+									title,
+								},
+								store: {
+									title,
+									excerpt,
+									path,
+								},
+							}
 						}
-					})
+					)
 				},
 			},
 		},
@@ -354,7 +325,7 @@ module.exports = {
 			proxy({
 				target: `http://localhost:9000`,
 				pathRewrite: {
-					'/.netlify/functions/': `/`,
+					"/.netlify/functions/": `/`,
 				},
 			})
 		)

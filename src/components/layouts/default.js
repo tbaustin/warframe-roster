@@ -1,34 +1,68 @@
-import React from 'react'
-import { StaticQuery, graphql } from 'gatsby'
-import { css } from '@emotion/core'
-import { Helmet } from 'react-helmet'
-import RouteDelayed from '../../../plugins/route-delayed-animation'
-import Header from '../header'
-import Footer from '../footer'
-import RouteDelayedAnimation from '../route-delayed-animation'
-import {
-	white,
-	primaryColor,
-} from '../../styles/colors'
-import {
-	primaryFont,
-	secondaryFont,
-} from '../../styles/fonts'
-import linkMixin from '../../styles/mixins/link'
-import '../../styles/global.css'
+import React from "react"
+import { StaticQuery, graphql } from "gatsby"
+import { css } from "@emotion/core"
+import { Helmet } from "react-helmet"
+import RouteDelayed from "../../../plugins/route-delayed-animation"
+import Header from "../header"
+import Footer from "../footer"
+import RouteDelayedAnimation from "../route-delayed-animation"
+import { white, primaryColor } from "../../styles/colors"
+import { primaryFont, secondaryFont } from "../../styles/fonts"
+import linkMixin from "../../styles/mixins/link"
+import "../../styles/global.css"
 
-export default class Layout extends React.Component{
-	render(){
-		const {
-			title,
-			description,
-		} = this.props
-		return(
+export default class Layout extends React.Component {
+	render() {
+		const { title, description } = this.props
+		return (
 			<StaticQuery
 				query={graphql`
-					query DefaultTemplateQuery{
-						site{
-							siteMetadata{
+					fragment categoryFragment on Query {
+						categoryMarkdown: allMarkdownRemark(
+							filter: {
+								fileAbsolutePath: { regex: "/src/markdown/categories/" }
+							}
+							sort: { order: ASC, fields: [frontmatter___order] }
+						) {
+							edges {
+								node {
+									html
+									frontmatter {
+										title
+										id
+									}
+								}
+							}
+						}
+					}
+					fragment productFragment on Query {
+						productMarkdown: allMarkdownRemark(
+							filter: { fileAbsolutePath: { regex: "/src/markdown/product/" } }
+							sort: { order: ASC, fields: [frontmatter___title] }
+						) {
+							edges {
+								node {
+									html
+									frontmatter {
+										title
+										id
+										category
+										subCategory
+										# banner {
+										# 	childImageSharp {
+										# 		fluid(maxWidth: 1000) {
+										# 			...GatsbyImageSharpFluid_withWebp
+										# 		}
+										# 	}
+										# }
+									}
+								}
+							}
+						}
+					}
+					query DefaultTemplateQuery {
+						site {
+							siteMetadata {
 								siteTitle: title
 								siteDescription: description
 							}
@@ -37,18 +71,18 @@ export default class Layout extends React.Component{
 				`}
 				render={({
 					site: {
-						siteMetadata: {
-							siteTitle,
-							siteDescription,
-						},
+						siteMetadata: { siteTitle, siteDescription },
 					},
 				}) => (
 					<>
 						<Helmet>
 							<title>{title ? `${title} | ${siteTitle}` : siteTitle}</title>
-							<meta name='description' content={description || siteDescription} />
-							<meta property='og:title' content={title} />
-							<meta property='og:site_name' content={siteTitle} />
+							<meta
+								name="description"
+								content={description || siteDescription}
+							/>
+							<meta property="og:title" content={title} />
+							<meta property="og:site_name" content={siteTitle} />
 						</Helmet>
 						<div css={styles.layout}>
 							<Header />
@@ -67,32 +101,33 @@ export default class Layout extends React.Component{
 	}
 }
 
-
 const styles = {
 	layout: css`
 		min-height: 100vh;
 		display: flex;
 		flex-direction: column;
 		font-family: ${secondaryFont};
-		a{
+		a {
 			${linkMixin};
 		}
-		p{
+		p {
 			line-height: 28px;
 		}
-		img{
+		img {
 			max-width: 100%;
 			position: relative;
 		}
-		h1, h2, h3{
+		h1,
+		h2,
+		h3 {
 			font-family: ${primaryFont};
 			text-transform: uppercase;
 		}
-		li{
+		li {
 			line-height: 1.3em;
 			margin-bottom: 4px;
 		}
-		& ::selection{
+		& ::selection {
 			color: ${white};
 			background-color: ${primaryColor};
 		}

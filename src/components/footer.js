@@ -1,16 +1,12 @@
-import React from 'react'
-import { css } from '@emotion/core'
-import Link from 'gatsby-link'
+import React from "react"
+import { css } from "@emotion/core"
+// import Link from "gatsby-link"
 
-export default class Footer extends React.Component{
-	render(){
+export default class Footer extends React.Component {
+	render() {
 		return (
 			<footer css={styles.footerStyles}>
-				<ul>
-					<li><Link to='/privacy-policy'>Privacy Policy</Link></li>
-					<li><a href='/email-templates/cms-invitation'>Email Template</a></li>
-					<li><a href='/admin/'>CMS</a></li>
-				</ul>
+				<ul />
 			</footer>
 		)
 	}
@@ -18,27 +14,27 @@ export default class Footer extends React.Component{
 
 const styles = {
 	footerStyles: css`
-		ul{
+		ul {
 			list-style-type: none;
 			padding: 30px;
 			margin: 0;
 		}
-		li{
+		li {
 			text-align: center;
 		}
-		a{
+		a {
 			padding: 0 10px;
 		}
-		@media(min-width: 800px){
-			li{
+		@media (min-width: 800px) {
+			li {
 				display: inline-block;
 				text-align: left;
 			}
-			ul > li{
-				:first-of-type > a{
+			ul > li {
+				:first-of-type > a {
 					padding-left: 0;
 				}
-				:last-of-type > a{
+				:last-of-type > a {
 					padding-right: 0;
 				}
 			}

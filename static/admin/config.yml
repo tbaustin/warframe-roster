@@ -3,12 +3,15 @@ backend:
   accept_roles:
     - admin
 
-media_library:
-  name: cloudinary-auth
-  output_filename_only: true
-  config:
-    cloud_name: escalade-sports
-    api_key: 449658775389987
+# media_library:
+#   name: cloudinary-auth
+#   output_filename_only: true
+#   config:
+#     cloud_name: escalade-sports
+#     api_key: 449658775389987
+
+media_folder: static/uploads
+public_folder: /uploads
 
 collections:
   - label: Pages
@@ -85,14 +88,19 @@ collections:
         valueField: id
         displayFields:
           - title
-      - label: Color
-        name: color
-        widget: string
-      - label: Price
-        name: price
-        widget: currency
-        required: false
-        default: 0
+      - label: Sub Category
+        name: subCategory
+        widget: relation
+        collection: sub-categories
+        searchFields:
+          - id
+          - title
+        valueField: id
+        displayFields:
+          - title
+      - label: Banner
+        name: banner
+        widget: image
       - label: Body
         name: body
         widget: markdown
@@ -100,26 +108,9 @@ collections:
         name: order
         widget: number
         valueType: int
+        required: false
         default: 1
         hint: Products on the site are ordered from lowest to highest number
-      - label: Published
-        name: published
-        widget: boolean
-        default: true
-      - label: Variants
-        name: variants
-        widget: list
-        required: false
-        fields:
-          - label: Color
-            name: color
-            widget: string
-          - label: ID
-            name: id
-            widget: string
-            pattern:
-              - ^[a-zA-Z0-9_-]+$
-              - Must contain only alphanumeric characters and hyphens
   - label: Categories
     name: categories
     folder: src/markdown/categories
@@ -141,6 +132,51 @@ collections:
         name: published
         widget: boolean
         default: true
+      - label: Order
+        name: order
+        widget: number
+        valueType: int
+        required: false
+        default: 1
+        hint: Products on the site are ordered from lowest to highest number
+  - label: Sub Categories
+    name: sub-categories
+    folder: src/markdown/sub-categories
+    create: true
+    fields:
+      - label: Name
+        name: title
+        widget: string
+      - label: Path
+        name: id
+        widget: string
+        pattern:
+          - ^[a-zA-Z0-9_-]+$
+          - Must contain only alphanumeric characters and hyphens
+      - label: Category
+        name: category
+        widget: relation
+        collection: categories
+        searchFields:
+          - id
+          - title
+        valueField: id
+        displayFields:
+          - title
+      - label: Body
+        name: body
+        widget: markdown
+      - label: Published
+        name: published
+        widget: boolean
+        default: true
+      - label: Order
+        name: order
+        widget: number
+        valueType: int
+        required: false
+        default: 1
+        hint: Products on the site are ordered from lowest to highest number
   - label: Blog
     name: blog
     folder: src/markdown/blog

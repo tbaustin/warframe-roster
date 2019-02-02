@@ -1,15 +1,12 @@
 module.exports = {
-	siteUrl: process.env.URL || `https://project-boilerplate.netlify.com`,
-	cloudinaryName: `escalade-sports`,
-	cloudinaryUploadPreset: `boilerplate`,
-	siteId: `onix`,
+	siteUrl: process.env.URL || `https://warframe-roster.netlify.com`,
+	cloudinaryName: `warframe-rostre`,
+	cloudinaryUploadPreset: `warframe`,
+	siteId: `warframe`,
 
 	// For comments Lamda function
-	gitHubRepo: `project-boilerplate`,
-	gitHubOwner: `escaladesports`,
+	gitHubRepo: `warframe-roster`,
+	gitHubOwner: `tbaustin`,
 
-	cmsEmailWhitelist: [
-		`kennedyianrose@gmail.com`,
-		`escaladesports.com`,
-	],
+	cmsEmailWhitelist: [`tbaustin1992@gmail.com`],
 }

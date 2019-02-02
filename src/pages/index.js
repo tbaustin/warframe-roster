@@ -1,44 +1,35 @@
-import React from 'react'
-import { graphql } from 'gatsby'
-import Button from '../components/button'
-import Layout from '../components/layouts/default'
-import Modal from '../components/modal'
-import Carousel from '../components/carousel'
+import React from "react"
+import { graphql, Link } from "gatsby"
+import { css } from "@emotion/core"
+
+import Layout from "../components/layouts/default"
 
 export default class HomePage extends React.Component {
-	constructor(props){
+	constructor(props) {
 		super(props)
 		this.state = {
 			open: false,
 		}
 	}
 	render() {
-		const {
-			page: {
-				html,
-			},
-		} = this.props.data
+		const { productMarkdown } = this.props.data
 
+		console.log(productMarkdown)
+		const warframes = productMarkdown.edges.map(({ node }) => node)
 		return (
 			<Layout>
-				<div dangerouslySetInnerHTML={{ __html: html }} />
-				<Carousel width={1000} height={400}>
-					<img src={`https://placehold.it/1000x400/ccc/999/&text=slide1`} />
-					<img src={`https://placehold.it/1000x400/ccc/999/&text=slide2`} />
-					<img src={`https://placehold.it/1000x400/ccc/999/&text=slide3`} />
-				</Carousel>
-				<br />
-				<Button
-					onClick={() => this.setState({ open: true })}
-				>
-					Open Modal
-				</Button>
-				<Modal
-					open={this.state.open}
-					onClose={() => this.setState({ open: false })}
-				>
-					<div>Modal content</div>
-				</Modal>
+				<h1>Warframe Roster</h1>
+				<ul css={[styles.list, styles.flex]}>
+					{warframes.map(({ frontmatter, html }, i) => (
+						<li key={i}>
+							<Link to={`/${frontmatter.category}/${frontmatter.id}`}>
+								<h1>{frontmatter.title}</h1>
+								<div>Tier: {frontmatter.subCategory}</div>
+								<div dangerouslySetInnerHTML={{ __html: html }} />
+							</Link>
+						</li>
+					))}
+				</ul>
 			</Layout>
 		)
 	}
@@ -46,10 +37,18 @@ export default class HomePage extends React.Component {
 
 export const query = graphql`
 	query HomePage {
-		page: markdownRemark(fileAbsolutePath: {
-			regex: "/src/markdown/index.md/"
-		}){
-			html
-		}
+		...productFragment
 	}
 `
+
+const styles = {
+	list: css`
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	`,
+	flex: css`
+		display: flex;
+		flex-flow: row wrap;
+	`,
+}

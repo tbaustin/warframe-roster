@@ -2,51 +2,45 @@ const { resolve } = require(`path`)
 
 const component = resolve(`src/templates/category.js`)
 
-module.exports = async function createProductPages(createPage, graphql){
-
+module.exports = async function createProductPages(createPage, graphql) {
 	// Query category markdown data
-	const result = await graphql(`{
-		allMarkdownRemark(
-			filter: {
-				fileAbsolutePath: {
-					regex: "/src/markdown/categories/"
+	const result = await graphql(`
+		{
+			allMarkdownRemark(
+				filter: {
+					fileAbsolutePath: { regex: "/src/markdown/categories/" }
+					frontmatter: { published: { eq: true } }
 				}
-				frontmatter: {
-					published: { eq: true }
-				}
-			}
-		){
-			edges {
-				node {
-					fields{
-						path
-						category
-					}
-					frontmatter{
-						id
+			) {
+				edges {
+					node {
+						fields {
+							path
+							category
+						}
+						frontmatter {
+							id
+						}
 					}
 				}
 			}
 		}
-	}`)
+	`)
 
 	if (result.errors) {
 		console.error(result.errors)
 		process.exit(1)
 	}
 
-	const { edges } = result.data.allMarkdownRemark
+	const edges = result.data.allMarkdownRemark
+		? result.data.allMarkdownRemark.edges
+		: []
 
-	for(let i = 0; i < edges.length; i++){
+	for (let i = 0; i < edges.length; i++) {
 		const {
 			node: {
-				fields: {
-					path,
-					category,
-				},
-				frontmatter: {
-					id: categoryId,
-				},
+				fields: { path, category },
+				frontmatter: { id: categoryId },
 			},
 		} = edges[i]
 
@@ -58,7 +52,6 @@ module.exports = async function createProductPages(createPage, graphql){
 						regex: "/src/markdown/products/"
 					}
 					frontmatter: {
-						published: { eq: true }
 						category: { eq: "${categoryId}" }
 					}
 				}
@@ -78,13 +71,15 @@ module.exports = async function createProductPages(createPage, graphql){
 			process.exit(1)
 		}
 
-		const productIds = result.data.allMarkdownRemark.edges.map(({
-			node: {
-				frontmatter: {
-					id,
-				},
-			},
-		}) => id)
+		const productIds = result.data.allMarkdownRemark
+			? result.data.allMarkdownRemark.edges.map(
+				({
+					node: {
+						frontmatter: { id },
+					},
+				}) => id
+			  )
+			: []
 
 		// Get all product IDs
 		createPage({
@@ -96,5 +91,4 @@ module.exports = async function createProductPages(createPage, graphql){
 			},
 		})
 	}
-
 }

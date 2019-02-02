@@ -1,6 +1,6 @@
 {
-	"extends": "escalade-sports",
+	"extends": ["escalade-sports", "prettier"],
 	"env": {
-    	"jest": true
+		"jest": true
 	}
 }
