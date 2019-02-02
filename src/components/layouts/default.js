@@ -1,15 +1,15 @@
-import React from "react"
-import { StaticQuery, graphql } from "gatsby"
-import { css } from "@emotion/core"
-import { Helmet } from "react-helmet"
-import RouteDelayed from "../../../plugins/route-delayed-animation"
-import Header from "../header"
-import Footer from "../footer"
-import RouteDelayedAnimation from "../route-delayed-animation"
-import { white, primaryColor } from "../../styles/colors"
-import { primaryFont, secondaryFont } from "../../styles/fonts"
-import linkMixin from "../../styles/mixins/link"
-import "../../styles/global.css"
+import React from 'react'
+import { StaticQuery, graphql } from 'gatsby'
+import { css } from '@emotion/core'
+import { Helmet } from 'react-helmet'
+import RouteDelayed from '../../../plugins/route-delayed-animation'
+import Header from '../header'
+import Footer from '../footer'
+import RouteDelayedAnimation from '../route-delayed-animation'
+import { white, primaryColor } from '../../styles/colors'
+import { primaryFont, secondaryFont } from '../../styles/fonts'
+import linkMixin from '../../styles/mixins/link'
+import '../../styles/global.css'
 
 export default class Layout extends React.Component {
 	render() {
@@ -71,8 +71,8 @@ export default class Layout extends React.Component {
 				`}
 				render={({
 					site: {
-						siteMetadata: { siteTitle, siteDescription },
-					},
+						siteMetadata: { siteTitle, siteDescription }
+					}
 				}) => (
 					<>
 						<Helmet>
@@ -135,8 +135,8 @@ const styles = {
 	content: css`
 		margin: 0 auto;
 		padding: 0 30px;
-		max-width: 960px;
+		max-width: 1200px;
 		width: 100%;
 		flex: 1 0 auto;
-	`,
+	`
 }
